@@ -1,0 +1,15 @@
+
+services:
+  frontend:
+    image: node:24.1.0-alpine3.22
+    restart: unless-stopped
+    tty: true
+    command: "sh -c '[ ! -d node_modules ] || npm install && npm run dev'"
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_TELEMETRY_DISABLED: 1
+
