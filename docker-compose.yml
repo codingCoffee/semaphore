@@ -1,7 +1,6 @@
-
 services:
   frontend:
-    image: node:24.1.0-alpine3.22
+    image: node:24.1.0-bookworm
     restart: unless-stopped
     tty: true
     command: "sh -c '[ ! -d node_modules ] || npm install && npm run dev'"
@@ -12,4 +11,65 @@ services:
       - "3000:3000"
     environment:
       NEXT_TELEMETRY_DISABLED: 1
+    env_file:
+      - ./frontend/.env
+
+  zero-cache:
+    image: node:24.1.0-bookworm
+    restart: unless-stopped
+    tty: true
+    command: "npx zero-cache-dev"
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "4848:4848"
+    env_file:
+      - ./frontend/.env
+
+  pgweb:
+    image: sosedoff/pgweb:0.16.2
+    environment:
+      PGWEB_DATABASE_URL: postgres://semaphore:semaphore@postgres:5432/semaphore?sslmode=disable
+    ports:
+      - 8081:8081
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "nc", "-vz", "127.0.0.1", "8081"]
+      interval: 5s
+
+  whodb:
+    image: clidey/whodb:0.55.0
+    environment:
+      WHODB_POSTGRES_1: '{"host":"postgres","user":"semaphore","password":"semaphore","database":"semaphore"}'
+    ports:
+      - 8080:8080
+
+  postgres:
+    image: postgres:16.2-alpine
+    shm_size: 1g
+    restart: always
+    healthcheck:
+      test: "pg_isready -U semaphore --dbname=semaphore"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # ports:
+    #   - 5432:5432
+    environment:
+      POSTGRES_USER: semaphore
+      POSTGRES_DB: semaphore
+      POSTGRES_PASSWORD: semaphore
+      PGDATA: /var/lib/postgresql/data/pgdata
+    command: |
+      postgres
+      -c wal_level=logical
+      -c max_wal_senders=10
+      -c max_replication_slots=5
+      -c hot_standby=on
+      -c hot_standby_feedback=on
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data/pgdata
 
