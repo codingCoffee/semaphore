@@ -144,7 +144,7 @@ export const schema = {
       columns: {
         id: {
           type: "string",
-          optional: false,
+          optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
             "LLMResponse",
@@ -180,7 +180,7 @@ export const schema = {
         },
         answer: {
           type: "string",
-          optional: false,
+          optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
             "LLMResponse",

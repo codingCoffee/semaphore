@@ -46,17 +46,20 @@ export const Chat = pgTable("Chat", {
 });
 
 export const LLMResponse = pgTable("LLMResponse", {
-  id: uuid("id").primaryKey(),
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   chat: uuid("chat")
     .notNull()
     .references(() => Chat.id, { onDelete: "restrict" }),
-  llm: uuid("llm")
-    .notNull()
-    .references(() => LLM.id, { onDelete: "restrict" }),
+  llm: varchar("llm").notNull(),
+  // llm: uuid("llm")
+  //   .notNull()
+  //   .references(() => LLM.id, { onDelete: "restrict" }),
   question: text("question").notNull(),
-  answer: text("answer").notNull(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at")
+  answer: text("answer"),
+  createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "string" })
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`)
     .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
