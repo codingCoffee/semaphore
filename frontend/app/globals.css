@@ -120,3 +120,97 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  pre.shiki {
+    position: relative;
+    z-index: 1;
+    padding: 0.5rem 0;
+    background: transparent;
+    border-radius: 0.5rem;
+    margin: 20px 0px;
+  }
+  pre.shiki code {
+    display: block;
+    padding: 2rem 1rem 0.5rem 1rem;
+    transition: color 0.5s;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    white-space: pre; /* Prevents line wrapping */
+    max-width: 100%; /* Ensures it doesn't overflow its container */
+  }
+  pre.shiki .copy-code-btn {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    z-index: 10;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  pre.shiki .filetype-code-btn {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-family: monospace;
+    text-transform: uppercase;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .markdown ul,
+  .markdown ol {
+    margin: 1em 0 1em 2em;
+    padding: 0;
+    list-style-position: outside;
+  }
+
+  .markdown ul {
+    list-style-type: disc;
+  }
+
+  .markdown ol {
+    list-style-type: decimal;
+  }
+
+  .markdown li {
+    margin: 0.3em 0;
+    line-height: 1.6;
+  }
+
+  .markdown blockquote {
+    border-left: 4px solid #ccc;
+    margin: 1em 0;
+    padding: 0.5em 1em;
+    color: #555;
+    background: #f9f9f9;
+  }
+
+  .markdown table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+  }
+
+  .markdown th,
+  .markdown td {
+    border: 1px solid #ddd;
+    padding: 0.5em 1em;
+    text-align: left;
+  }
+
+  .markdown th {
+    background: #f3f3f3;
+    font-weight: bold;
+  }
+}

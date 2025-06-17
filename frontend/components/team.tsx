@@ -20,7 +20,7 @@ export function Team() {
     <SidebarMenu>
       <Link href="/">
         <div className="flex gap-2">
-          <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+          <div className="bg-red-200 dark:bg-red-900 text-black dark:text-white flex aspect-square size-8 items-center justify-center rounded-lg">
             <SquareDashedBottomCode className="size-4" />
           </div>
           <div className="grid flex-1 text-left text-sm leading-tight">

@@ -6,6 +6,8 @@ import { useQuery } from "@rocicorp/zero/react";
 import { usePathname } from "next/navigation";
 import { BottomMessageTextArea } from "@/components/BottomMessageTextArea";
 
+import MarkdownRenderer from "@/components/MarkdownRenderer";
+
 export default function ChatPage() {
   const pathname = usePathname();
   let chatId = pathname.split("/")[2];
@@ -21,9 +23,13 @@ export default function ChatPage() {
         {LLMResponseInstances.map((item) => (
           <div key={item.id}>
             <div className="flex justify-end">
-              <div className="bg-red-200 p-2 rounded-lg">{item.question}</div>
+              <div className="dark:bg-red-900 bg-red-200 p-2 rounded-lg">
+                {item.question}
+              </div>
             </div>
-            <div className="p-5 rounded-lg">{item.answer}</div>
+            <div className="p-5 pt-10 rounded-lg markdown">
+              <MarkdownRenderer markdown={item.answer} />
+            </div>
           </div>
         ))}
       </div>
