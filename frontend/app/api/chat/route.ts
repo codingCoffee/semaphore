@@ -25,7 +25,7 @@ async function updateChatTitleBackgroundTask(
         {
           role: "system",
           content:
-            "You are a helpful assistantm, who only generates a concise, descriptive title (max 10 words) for the user query below to an LLM, summarizing its main topic and intent.",
+            "Summerize the user's query to generate a concise and descriptive title (max 10 words) capturing its main topic and intent.",
         },
         { role: "user", content: message },
       ],
@@ -56,7 +56,7 @@ async function callOpenRouterBackgroundTask(
     {
       role: "system",
       content:
-        "You are the a helpful assistant, named Semaphore created by Ameya Shenoy.",
+        "You are the a helpful assistant, named [Semaphore](https://semaphore.chat) created by [Ameya Shenoy](https://codingcoffee.dev).",
     },
   ];
   for (const interaction of llmResponses) {
@@ -134,8 +134,7 @@ async function callOpenRouterBackgroundTask(
 }
 
 export async function POST(req: Request) {
-  let { message, chatId } = await req.json();
-  const model = "openai/gpt-4o-mini";
+  let { message, model, chatId } = await req.json();
 
   let ChatInstance = null;
   if (chatId === null) {

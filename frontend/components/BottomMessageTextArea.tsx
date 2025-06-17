@@ -4,8 +4,19 @@ import { usePathname, redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowUp, Paperclip, Search } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
-import { ModelDropdown } from "@/components/ModelDropdown";
 import { useCallback, useState } from "react";
+import { promises as fs } from "fs";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import models from "@/data/openrouterModels.json";
 
 export function BottomMessageTextArea() {
   const pathname = usePathname();
@@ -14,6 +25,7 @@ export function BottomMessageTextArea() {
     chatId = pathname.split("/")[2];
   }
 
+  const [aiModel, setAIModel] = useState("google/gemma-3-12b-it:free");
   const [input, setInput] = useState("");
 
   const handleSubmit = useCallback(
@@ -24,6 +36,7 @@ export function BottomMessageTextArea() {
         body: JSON.stringify({
           message: input,
           chatId: chatId,
+          model: aiModel,
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -51,7 +64,35 @@ export function BottomMessageTextArea() {
             />
             <div className="flex justify-between">
               <div className="flex items-center gap-5">
-                <ModelDropdown />
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline">{aiModel}</Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>Available Models</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuRadioGroup
+                      value={aiModel}
+                      onValueChange={setAIModel}
+                    >
+                      {models
+                        .filter(
+                          (model) =>
+                            model.id?.includes("openai") ||
+                            model.id?.includes("google"),
+                        )
+                        .map((model) => (
+                          <DropdownMenuRadioItem
+                            key={model.id}
+                            value={model.id}
+                          >
+                            {model.name?.split("/").pop()}
+                          </DropdownMenuRadioItem>
+                        ))}
+                    </DropdownMenuRadioGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
                 <Search className="p-1" />
                 <Paperclip className="p-1" />
               </div>
