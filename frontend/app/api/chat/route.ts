@@ -3,7 +3,38 @@ import { db } from "@/db/index";
 import { eq } from "drizzle-orm";
 import { after } from "next/server";
 
-import { LLMResponse } from "@/db/schema";
+import { Chat, LLMResponse } from "@/db/schema";
+
+const chatTitlePlaceholder = " * * * ";
+
+async function updateChatTitle(LLMResponseInstance: any, message: string) {
+  const content = `Generate a concise, descriptive title (max 10 words) for the user query below to an LLM, summarizing its main topic and intent.
+
+${message}
+`;
+  const resp = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      "Content-Type": "application/json",
+      "HTTP-Referer": "https://codingcoffee.dev",
+      "X-Title": "Semaphore Chat",
+    },
+    body: JSON.stringify({
+      model: "openai/gpt-4o-mini",
+      messages: [{ role: "user", content: content }],
+      stream: false,
+    }),
+  });
+
+  const data = await resp.json();
+  await db
+    .update(Chat)
+    .set({
+      title: data.choices[0].message.content,
+    })
+    .where(eq(Chat.id, LLMResponseInstance.chatId));
+}
 
 async function callOpenRouterBackgroundTask(
   LLMResponseInstance: any,
@@ -78,28 +109,49 @@ async function callOpenRouterBackgroundTask(
 }
 
 export async function POST(req: Request) {
-  const { message, chatId } = await req.json();
+  let { message, chatId } = await req.json();
   const model = "openai/gpt-4o-mini";
 
-  // Save user message
+  let ChatInstance = null;
+  if (chatId === null) {
+    const ChatInstances = await db
+      .insert(Chat)
+      .values({
+        title: chatTitlePlaceholder,
+        is_public: false,
+        createdBy: "cceae8f8-042e-44a4-9139-799fbee1cbbb",
+      })
+      .returning({
+        id: Chat.id,
+        title: Chat.title,
+      });
+    ChatInstance = ChatInstances[0];
+    chatId = ChatInstance.id;
+  }
+
   const LLMResponseInstances = await db
     .insert(LLMResponse)
     .values({
-      chat: chatId,
+      chatId: chatId,
       llm: model,
       question: message,
       answer: "",
     })
     .returning({
       id: LLMResponse.id,
+      chatId: LLMResponse.chatId,
     });
   const LLMResponseInstance = LLMResponseInstances[0];
 
   after(() => {
+    if (ChatInstance && ChatInstance.title === chatTitlePlaceholder) {
+      updateChatTitle(LLMResponseInstance, message);
+    }
     callOpenRouterBackgroundTask(LLMResponseInstance, model, message);
   });
 
   return Response.json({
+    id: chatId,
     message: "Request received, background task scheduled",
   });
   // return new NextResponse(stream, {

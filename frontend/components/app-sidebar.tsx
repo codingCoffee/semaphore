@@ -25,7 +25,7 @@ import {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const z = useZero();
 
-  const [chats] = useQuery(z.query.Chat);
+  const [chats] = useQuery(z.query.Chat.orderBy("createdAt", "desc"));
   const user = {
     name: "Ameya Shenoy",
     email: "shenoy.ameya@gmail.com",

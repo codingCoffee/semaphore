@@ -3,33 +3,32 @@
 import { useZero } from "@/components/zero-provider";
 import { useQuery } from "@rocicorp/zero/react";
 
-import { ArrowUp } from "lucide-react";
-import { Textarea } from "@/components/ui/textarea";
-import { ModelDropdown } from "@/components/ModelDropdown";
+import { usePathname } from "next/navigation";
+import { BottomMessageTextArea } from "@/components/BottomMessageTextArea";
 
-export default function Home() {
+export default function ChatPage() {
+  const pathname = usePathname();
+  let chatId = pathname.split("/")[2];
+
+  const z = useZero();
+  const [LLMResponseInstances] = useQuery(
+    z.query.LLMResponse.where("chatId", chatId).orderBy("createdAt", "asc"),
+  );
+
   return (
     <div className="flex flex-1 flex-col justify-end items-center">
-      <div className="w-[40%] border-2 border-black-500 rounded-t-3xl p-1">
-        <div className="border-2 border-black-500 rounded-t-3xl">
-          <div>
-            <Textarea
-              placeholder="Type your message here..."
-              className="resize-none border-none focus:outline-none focus:ring-0 focus:ring-offset-0 border-0 focus:shadow-none"
-            />
-            <div className="flex justify-between">
-              <div className="flex items-center">
-                <ModelDropdown />
-                <div>Search</div>
-                <div>Atachment</div>
-              </div>
-              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                <ArrowUp className="size-4" />
-              </div>
+      <div className="w-[47%]">
+        {LLMResponseInstances.map((item) => (
+          <div key={item.id}>
+            <div className="flex justify-end">
+              <div className="bg-red-200 p-2 rounded-lg">{item.question}</div>
             </div>
+            <div className="p-2 rounded-lg">{item.answer}</div>
           </div>
-        </div>
+        ))}
       </div>
+
+      <BottomMessageTextArea />
     </div>
   );
 }

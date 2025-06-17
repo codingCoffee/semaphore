@@ -15,6 +15,13 @@
       "when": 1750084824747,
       "tag": "0001_true_wasp",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1750148692583,
+      "tag": "0002_past_iron_monger",
+      "breakpoints": true
     }
   ]
 }

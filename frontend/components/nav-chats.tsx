@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   Pen,
   Share,
@@ -42,9 +43,9 @@ export function NavProjects({
         {chats.map((item) => (
           <SidebarMenuItem key={item.id}>
             <SidebarMenuButton asChild>
-              <a href={`/c/${item.id}`}>
+              <Link href={`/c/${item.id}`}>
                 <span>{item.title}</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

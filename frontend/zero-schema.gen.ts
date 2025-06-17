@@ -37,7 +37,7 @@ export const schema = {
       columns: {
         id: {
           type: "string",
-          optional: false,
+          optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
             "Chat",
@@ -100,7 +100,7 @@ export const schema = {
       columns: {
         id: {
           type: "string",
-          optional: false,
+          optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
             "LLM",
@@ -151,14 +151,15 @@ export const schema = {
             "id"
           >,
         },
-        chat: {
+        chatId: {
           type: "string",
           optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
             "LLMResponse",
-            "chat"
+            "chatId"
           >,
+          serverName: "chat_id",
         },
         llm: {
           type: "string",
@@ -215,7 +216,7 @@ export const schema = {
       columns: {
         id: {
           type: "string",
-          optional: false,
+          optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
             "User",
