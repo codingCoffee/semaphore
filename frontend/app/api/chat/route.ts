@@ -1,17 +1,16 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db/index";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { after } from "next/server";
 
 import { Chat, LLMResponse } from "@/db/schema";
 
 const chatTitlePlaceholder = " * * * ";
 
-async function updateChatTitle(LLMResponseInstance: any, message: string) {
-  const content = `Generate a concise, descriptive title (max 10 words) for the user query below to an LLM, summarizing its main topic and intent.
-
-${message}
-`;
+async function updateChatTitleBackgroundTask(
+  LLMResponseInstance: any,
+  message: string,
+) {
   const resp = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -22,7 +21,14 @@ ${message}
     },
     body: JSON.stringify({
       model: "openai/gpt-4o-mini",
-      messages: [{ role: "user", content: content }],
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a helpful assistantm, who only generates a concise, descriptive title (max 10 words) for the user query below to an LLM, summarizing its main topic and intent.",
+        },
+        { role: "user", content: message },
+      ],
       stream: false,
     }),
   });
@@ -41,6 +47,31 @@ async function callOpenRouterBackgroundTask(
   model: string,
   message: string,
 ) {
+  const llmResponses = await db
+    .select()
+    .from(LLMResponse)
+    .where(eq(LLMResponse.chatId, LLMResponseInstance.chatId))
+    .orderBy(asc(LLMResponse.createdAt));
+  const messages = [
+    {
+      role: "system",
+      content:
+        "You are the a helpful assistant, named Semaphore created by Ameya Shenoy.",
+    },
+  ];
+  for (const interaction of llmResponses) {
+    messages.push({
+      role: "user",
+      content: interaction.question,
+    });
+    if (interaction.answer) {
+      messages.push({
+        role: "assistant",
+        content: interaction.answer,
+      });
+    }
+  }
+
   const openRouterResponse = await fetch(
     "https://openrouter.ai/api/v1/chat/completions",
     {
@@ -53,7 +84,7 @@ async function callOpenRouterBackgroundTask(
       },
       body: JSON.stringify({
         model: model,
-        messages: [{ role: "user", content: message }],
+        messages: messages,
         stream: true,
       }),
     },
@@ -68,44 +99,38 @@ async function callOpenRouterBackgroundTask(
   let completeResponse = "";
   let buffer = "";
 
-  const stream = new ReadableStream({
-    async start(controller) {
-      while (true) {
-        const { done, value } = await reader!.read();
-        if (done) break;
+  while (true) {
+    const { done, value } = await reader!.read();
+    if (done) break;
 
-        buffer += decoder.decode(value);
-        const lines = buffer.split("\n");
-        buffer = lines.pop() || "";
+    buffer += decoder.decode(value);
+    const lines = buffer.split("\n");
+    buffer = lines.pop() || "";
 
-        for (const line of lines) {
-          const trimmed = line.trim();
-          if (!trimmed || trimmed === "data: [DONE]") continue;
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed === "data: [DONE]") continue;
 
-          try {
-            const json = JSON.parse(trimmed.replace("data: ", ""));
-            const delta = json.choices[0]?.delta;
-            const chunk = delta?.content;
-            if (chunk) {
-              console.log("Received chunk:", chunk);
-              completeResponse += chunk;
-              await db
-                .update(LLMResponse)
-                .set({
-                  answer: completeResponse,
-                })
-                .where(eq(LLMResponse.id, LLMResponseInstance.id));
-            }
-            console.log("completeResponse: ", completeResponse);
-          } catch (e) {
-            console.error("Error parsing chunk:", e);
-          }
+      try {
+        const json = JSON.parse(trimmed.replace("data: ", ""));
+        const delta = json.choices[0]?.delta;
+        const chunk = delta?.content;
+        if (chunk) {
+          console.log("Received chunk:", chunk);
+          completeResponse += chunk;
+          await db
+            .update(LLMResponse)
+            .set({
+              answer: completeResponse,
+            })
+            .where(eq(LLMResponse.id, LLMResponseInstance.id));
         }
-        controller.enqueue(value);
+        console.log("completeResponse: ", completeResponse);
+      } catch (e) {
+        console.error("Error parsing chunk:", e);
       }
-      controller.close();
-    },
-  });
+    }
+  }
 }
 
 export async function POST(req: Request) {
@@ -145,7 +170,7 @@ export async function POST(req: Request) {
 
   after(() => {
     if (ChatInstance && ChatInstance.title === chatTitlePlaceholder) {
-      updateChatTitle(LLMResponseInstance, message);
+      updateChatTitleBackgroundTask(LLMResponseInstance, message);
     }
     callOpenRouterBackgroundTask(LLMResponseInstance, model, message);
   });

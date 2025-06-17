@@ -44,6 +44,7 @@ export const Chat = pgTable("Chat", {
   createdBy: uuid("created_by")
     .notNull()
     .references(() => User.id, { onDelete: "restrict" }),
+  deletedAt: timestamp("deleted_at", { mode: "string" }),
   createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "string" })
     .notNull()

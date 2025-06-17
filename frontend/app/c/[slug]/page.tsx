@@ -23,7 +23,7 @@ export default function ChatPage() {
             <div className="flex justify-end">
               <div className="bg-red-200 p-2 rounded-lg">{item.question}</div>
             </div>
-            <div className="p-2 rounded-lg">{item.answer}</div>
+            <div className="p-5 rounded-lg">{item.answer}</div>
           </div>
         ))}
       </div>

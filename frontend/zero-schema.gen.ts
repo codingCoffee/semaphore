@@ -72,6 +72,16 @@ export const schema = {
           >,
           serverName: "created_by",
         },
+        deletedAt: {
+          type: "number",
+          optional: true,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "Chat",
+            "deletedAt"
+          >,
+          serverName: "deleted_at",
+        },
         createdAt: {
           type: "number",
           optional: true,
