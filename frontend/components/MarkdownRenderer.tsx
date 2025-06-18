@@ -19,6 +19,12 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
   useEffect(() => {
     if (!containerRef.current) return;
 
+    const linkTags = containerRef.current.querySelectorAll("a");
+    linkTags.forEach((block) => {
+      block.setAttribute("target", "_blank");
+      block.setAttribute("rel", "noopener noreferrer");
+    });
+
     // Find all code blocks (Shiki wraps them in <pre class="shiki">)
     const codeBlocks = containerRef.current.querySelectorAll("pre.shiki");
 
