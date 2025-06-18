@@ -53,14 +53,15 @@ export const schema = {
             "title"
           >,
         },
-        is_public: {
+        isPublic: {
           type: "boolean",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
             "Chat",
-            "is_public"
+            "isPublic"
           >,
+          serverName: "is_public",
         },
         createdBy: {
           type: "string",
@@ -98,50 +99,6 @@ export const schema = {
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
             "Chat",
-            "updatedAt"
-          >,
-          serverName: "updated_at",
-        },
-      },
-      primaryKey: ["id"],
-    },
-    LLM: {
-      name: "LLM",
-      columns: {
-        id: {
-          type: "string",
-          optional: true,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "LLM",
-            "id"
-          >,
-        },
-        name: {
-          type: "string",
-          optional: false,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "LLM",
-            "name"
-          >,
-        },
-        createdAt: {
-          type: "number",
-          optional: true,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "LLM",
-            "createdAt"
-          >,
-          serverName: "created_at",
-        },
-        updatedAt: {
-          type: "number",
-          optional: true,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "LLM",
             "updatedAt"
           >,
           serverName: "updated_at",
@@ -197,6 +154,16 @@ export const schema = {
             "LLMResponse",
             "answer"
           >,
+        },
+        isPending: {
+          type: "boolean",
+          optional: true,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "LLMResponse",
+            "isPending"
+          >,
+          serverName: "is_pending",
         },
         createdAt: {
           type: "number",
@@ -303,6 +270,5 @@ export const permissions = definePermissions<AuthData, Schema>(schema, () => {
     User: ANYONE_CAN_DO_ANYTHING,
     LLMResponse: ANYONE_CAN_DO_ANYTHING,
     Chat: ANYONE_CAN_DO_ANYTHING,
-    LLM: ANYONE_CAN_DO_ANYTHING,
   } satisfies PermissionsConfig<AuthData, Schema>;
 });

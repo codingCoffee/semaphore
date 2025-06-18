@@ -27,7 +27,7 @@ import {
 import models from "@/data/openrouterModels.json";
 
 type BottomMessageTextAreaProps = {
-  endOfMessagesRef: RefObject<HTMLDivElement>;
+  endOfMessagesRef: RefObject<HTMLDivElement> | null;
 };
 
 export function BottomMessageTextArea({
@@ -69,7 +69,7 @@ export function BottomMessageTextArea({
         if (pathname !== requiredPathname) {
           redirect(requiredPathname);
         } else {
-          if (endOfMessagesRef.current) {
+          if (endOfMessagesRef && endOfMessagesRef.current) {
             endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
           }
         }
@@ -81,8 +81,8 @@ export function BottomMessageTextArea({
   );
 
   return (
-    <div className="md:w-[786px] w-[95%] border-2 border-black-500 rounded-t-3xl p-1 fixed bottom-0 z-20 backdrop-blur-3xl">
-      <div className="border-2 border-black-500 rounded-t-3xl">
+    <div className="md:w-[786px] w-[95%] fixed bottom-0 z-20 pb-5">
+      <div className="rounded-3xl backdrop-blur-3xl p-5">
         <div>
           <form onSubmit={handleSubmit}>
             <AutosizeTextArea
@@ -105,7 +105,7 @@ export function BottomMessageTextArea({
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline">{aiModel}</Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56">
+                  <DropdownMenuContent className="w-100">
                     <DropdownMenuLabel>Available Models</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuRadioGroup
@@ -121,6 +121,7 @@ export function BottomMessageTextArea({
                             parseFloat(model.pricing?.prompt || "1") <=
                               0.0000001,
                         )
+                        .sort((a, b) => (a.name > b.name ? 1 : -1))
                         .map((model) => (
                           <DropdownMenuRadioItem
                             key={model.id}
@@ -135,7 +136,7 @@ export function BottomMessageTextArea({
               </div>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div>
+                  <div className="p-1">
                     <Button
                       className={`cursor-pointer ${isDisabled ? "pointer-events-none opacity-50" : ""}`}
                       disabled={isDisabled}

@@ -7,13 +7,32 @@ import { createHighlighter, bundledLanguages } from "shiki";
 import DOMPurify from "dompurify";
 
 const darkTheme = "monokai";
-const lightTheme = "one-light";
+const lightTheme = "rose-pine-dawn";
 
 // You may want to parameterize theme/langs for your use case
 const highlighterPromise = createHighlighter({
   // TODO: can be used to import highlighting for all languages, but it slows things down considerably
   // langs: Object.keys(bundledLanguages),
-  langs: ["js", "ts", "tsx", "md", "python", "js", "bash", "json"],
+  langs: [
+    "ts",
+    "tsx",
+    "md",
+    "python",
+    "js",
+    "jsx",
+    "bash",
+    "json",
+    "rust",
+    "go",
+    "cpp",
+    "sql",
+    "ruby",
+    "nix",
+    "html",
+    "css",
+    "markdown",
+    "tf",
+  ],
   themes: [lightTheme, darkTheme],
 });
 

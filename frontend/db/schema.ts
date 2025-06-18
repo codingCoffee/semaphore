@@ -40,7 +40,7 @@ export const Chat = pgTable("Chat", {
     .primaryKey()
     .default(sql`gen_random_uuid()`),
   title: varchar("title", { length: 255 }).notNull(),
-  is_public: boolean("is_public").default(false),
+  isPublic: boolean("is_public").default(false),
   createdBy: uuid("created_by")
     .notNull()
     .references(() => User.id, { onDelete: "restrict" }),
@@ -60,23 +60,9 @@ export const LLMResponse = pgTable("LLMResponse", {
     .notNull()
     .references(() => Chat.id, { onDelete: "restrict" }),
   llm: varchar("llm").notNull(),
-  // llm: uuid("llm")
-  //   .notNull()
-  //   .references(() => LLM.id, { onDelete: "restrict" }),
   question: text("question").notNull(),
   answer: text("answer"),
-  createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
-  updatedAt: timestamp("updated_at", { mode: "string" })
-    .notNull()
-    .default(sql`CURRENT_TIMESTAMP`)
-    .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
-});
-
-export const LLM = pgTable("LLM", {
-  id: uuid("id")
-    .primaryKey()
-    .default(sql`gen_random_uuid()`),
-  name: varchar("name", { length: 255 }).notNull(),
+  isPending: boolean("is_pending").default(true),
   createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "string" })
     .notNull()

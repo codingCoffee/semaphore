@@ -25,7 +25,7 @@ async function updateChatTitleBackgroundTask(
         {
           role: "system",
           content:
-            "Summerize the user's query to generate a concise and descriptive title (max 10 words) capturing its main topic and intent.",
+            "Summerize the user's query to generate a concise and descriptive title (max 10 words) capturing its main topic and intent. Always start the response with the most relevant emoji",
         },
         { role: "user", content: message },
       ],

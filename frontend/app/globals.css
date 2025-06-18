@@ -168,6 +168,16 @@
     user-select: none;
   }
 
+  .markdown hr {
+    height: 4px;
+    background: var(--sidebar-accent);
+    border: none;
+  }
+
+  .markdown p {
+    margin: 1em 0;
+  }
+
   .markdown ul,
   .markdown ol {
     margin: 1em 0 1em 2em;
@@ -209,7 +219,7 @@
   }
 
   .markdown th {
-    background: #f3f3f3;
+    background: var(--sidebar-accent);
     font-weight: bold;
   }
 
