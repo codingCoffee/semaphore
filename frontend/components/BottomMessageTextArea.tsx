@@ -8,6 +8,8 @@ import { ArrowUp, Paperclip, Search } from "lucide-react";
 import { AutosizeTextArea } from "@/components/AutoResizeTextArea";
 import { useCallback, useState } from "react";
 
+import Link from "next/link";
+
 import {
   Tooltip,
   TooltipContent,
@@ -134,22 +136,31 @@ export function BottomMessageTextArea({
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="p-1">
-                    <Button
-                      className={`cursor-pointer ${isDisabled ? "pointer-events-none opacity-50" : ""}`}
-                      disabled={isDisabled}
-                      type="submit"
-                    >
-                      <ArrowUp className="size-4" />
+              <div className="flex">
+                <div className="p-1">
+                  <Link href="/">
+                    <Button variant="outline" className="cursor-pointer">
+                      New Chat
                     </Button>
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{isDisabled ? "Message requires text" : "Send"}</p>
-                </TooltipContent>
-              </Tooltip>
+                  </Link>
+                </div>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className="p-1">
+                      <Button
+                        className={`cursor-pointer ${isDisabled ? "pointer-events-none opacity-50" : ""}`}
+                        disabled={isDisabled}
+                        type="submit"
+                      >
+                        <ArrowUp className="size-4" />
+                      </Button>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{isDisabled ? "Message requires text" : "Send"}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
             </div>
           </form>
         </div>
