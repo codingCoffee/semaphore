@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 import { useZero } from "@/components/zero-provider";
 import { useQuery } from "@rocicorp/zero/react";
 
@@ -17,9 +19,17 @@ export default function ChatPage() {
     z.query.LLMResponse.where("chatId", chatId).orderBy("createdAt", "asc"),
   );
 
+  const endOfMessagesRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (endOfMessagesRef.current) {
+      endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [LLMResponseInstances]);
+
   return (
-    <div className="flex flex-1 flex-col justify-end items-center">
-      <div className="w-[47%]">
+    <div className="flex flex-1 flex-col justify-end items-center pt-10 pb-40">
+      <div className="md:w-[786px] w-[95%]">
         {LLMResponseInstances.map((item) => (
           <div key={item.id}>
             <div className="flex justify-end">
@@ -28,13 +38,15 @@ export default function ChatPage() {
               </div>
             </div>
             <div className="p-5 pt-10 rounded-lg markdown">
-              <MarkdownRenderer markdown={item.answer} />
+              <MarkdownRenderer markdown={item.answer ? item.answer : ""} />
             </div>
           </div>
         ))}
+        {/* This div will act as the scroll target */}
+        <div ref={endOfMessagesRef} />
       </div>
 
-      <BottomMessageTextArea />
+      <BottomMessageTextArea endOfMessagesRef={endOfMessagesRef} />
     </div>
   );
 }

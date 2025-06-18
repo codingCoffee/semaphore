@@ -192,8 +192,7 @@
     border-left: 4px solid #ccc;
     margin: 1em 0;
     padding: 0.5em 1em;
-    color: #555;
-    background: #f9f9f9;
+    background: var(--sidebar-accent);
   }
 
   .markdown table {

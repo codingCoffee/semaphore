@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
 
 import { useMarkdownRenderer } from "@/hooks/useMarkdownRenderer";
 
@@ -10,7 +11,9 @@ interface MarkdownRendererProps {
 }
 
 const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
-  const html = useMarkdownRenderer(markdown);
+  const { theme } = useTheme();
+
+  const html = useMarkdownRenderer(markdown, theme);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -73,11 +76,13 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
   }, [html]);
 
   return (
-    <div
-      ref={containerRef}
-      className="markdown"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <>
+      <div
+        ref={containerRef}
+        className="markdown"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </>
   );
 };
 

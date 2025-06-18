@@ -56,7 +56,7 @@ async function callOpenRouterBackgroundTask(
     {
       role: "system",
       content:
-        "You are the a helpful assistant, named [Semaphore](https://semaphore.chat) created by [Ameya Shenoy](https://codingcoffee.dev).",
+        "You are the a helpful assistant, named [Semaphore](https://semaphore.chat) created by Ameya Shenoy.",
     },
   ];
   for (const interaction of llmResponses) {

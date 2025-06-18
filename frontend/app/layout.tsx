@@ -62,12 +62,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen">
+          <div className="min-h-screen selection:bg-red-200 dark:selection:bg-red-900">
             <ZeroProvider>
               <SidebarProvider>
                 <AppSidebar />
                 <SidebarInset>
-                  <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+                  <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 fixed z-20">
                     <div className="flex items-center gap-2 px-4">
                       <SidebarTrigger className="-ml-1" />
                       <ModeToggle />
