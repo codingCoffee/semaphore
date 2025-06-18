@@ -41,9 +41,9 @@ export const Chat = pgTable("Chat", {
     .default(sql`gen_random_uuid()`),
   title: varchar("title", { length: 255 }).notNull(),
   isPublic: boolean("is_public").default(false),
-  createdBy: uuid("created_by")
-    .notNull()
-    .references(() => User.id, { onDelete: "restrict" }),
+  createdBy: uuid("created_by").references(() => User.id, {
+    onDelete: "restrict",
+  }),
   deletedAt: timestamp("deleted_at", { mode: "string" }),
   createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "string" })

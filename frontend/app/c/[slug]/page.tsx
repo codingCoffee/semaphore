@@ -33,8 +33,8 @@ export default function ChatPage() {
         {LLMResponseInstances.map((item) => (
           <div key={item.id}>
             <div className="flex justify-end">
-              <div className="dark:bg-red-900 bg-red-200 p-2 rounded-lg">
-                {item.question}
+              <div className="dark:bg-red-900 bg-red-200 p-2 rounded-lg markdown">
+                <MarkdownRenderer markdown={item.question} />
               </div>
             </div>
             <div className="p-5 pt-10 rounded-lg markdown">

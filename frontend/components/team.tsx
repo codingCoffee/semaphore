@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import { SquareDashedBottomCode } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 
 import { SidebarMenu } from "@/components/ui/sidebar";
 import Link from "next/link";
@@ -25,7 +25,40 @@ export function Team() {
           </div>
           <div className="grid flex-1 text-left text-sm leading-tight">
             <span className="truncate font-medium">Semaphore Chat</span>
-            <span className="truncate text-xs">by codingcoffee</span>
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <span className="truncate text-xs hover:underline">
+                  by @codingcoffee
+                </span>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-80">
+                <div className="flex justify-between gap-4">
+                  <Avatar>
+                    <AvatarImage src="https://avatars.githubusercontent.com/u/13611153?v=4" />
+                    <AvatarFallback>VC</AvatarFallback>
+                  </Avatar>
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-semibold">Ameya Shenoy</h4>
+                    <p className="text-sm">
+                      I write code sometimes. Other times I'm busy writing todo
+                      lists.
+                    </p>
+                    <div className="flex flex-col text-muted-foreground text-xs">
+                      <Link
+                        href="https://codingcoffee.dev"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        codingcoffee.dev
+                      </Link>
+                      <Link href="mailto:shenoy.ameya@gmail.com">
+                        shenoy.ameya@gmail.com
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
           </div>
         </div>
       </Link>

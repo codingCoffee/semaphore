@@ -46,11 +46,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const { status } = useSession();
 
-  // This effect will run whenever the status changes
-  useEffect(() => {
-    // You can add any side effects here if needed
-  }, [status]);
-
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
