@@ -23,7 +23,7 @@ services:
     ports:
       - 4848:4848
     env_file:
-      - ./frontend/.zero-cache.dev.env
+      - ./frontend/.zero-cache.env
     depends_on:
       - postgres
 

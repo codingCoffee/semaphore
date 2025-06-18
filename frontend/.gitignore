@@ -34,7 +34,7 @@ yarn-error.log*
 .nextjs.env
 .postgres.env
 .whodb.env
-.zero-cache.dev.env
+.zero-cache.env
 .env*
 
 # vercel
