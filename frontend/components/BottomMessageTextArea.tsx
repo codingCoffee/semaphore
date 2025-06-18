@@ -105,7 +105,12 @@ export function BottomMessageTextArea({
               <div className="flex items-center gap-5 p-1">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline">{aiModel}</Button>
+                    <Button
+                      variant="outline"
+                      className="md:max-w-96 max-w-40 truncate"
+                    >
+                      {aiModel}
+                    </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-100">
                     <DropdownMenuLabel>Available Models</DropdownMenuLabel>
