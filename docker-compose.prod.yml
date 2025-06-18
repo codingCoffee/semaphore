@@ -5,35 +5,31 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     restart: unless-stopped
-    working_dir: /app
     ports:
       - "127.0.0.1:3000:3000"
-    environment:
-      NEXT_TELEMETRY_DISABLED: 1
     env_file:
-      - ./frontend/.env
+      - ./frontend/.nextjs.env
 
   zero-cache:
-    image: node:24.1.0-bookworm
+    image: codingcoffee/semaphore-zero-cache
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.zero-cache
     restart: unless-stopped
-    tty: true
-    command: "npx zero-cache-dev"
-    working_dir: /app
-    volumes:
-      - ./frontend:/app
     ports:
       - "127.0.0.1:4848:4848"
     env_file:
-      - ./frontend/.env
+      - ./frontend/.zero-cache.dev.env
     depends_on:
       - postgres
 
   whodb:
     image: clidey/whodb:0.55.0
+    restart: unless-stopped
     env_file:
-      - ./frontend/.env
-    # ports:
-    #   - 8080:8080
+      - ./frontend/.whodb.env
+    ports:
+      - "127.0.0.1:8080:8080"
     depends_on:
       - postgres
 
@@ -41,15 +37,14 @@ services:
     image: postgres:16.2-alpine
     shm_size: 1g
     restart: always
+    restart: unless-stopped
     healthcheck:
       test: "pg_isready -U semaphore --dbname=semaphore"
       interval: 10s
       timeout: 5s
       retries: 5
-    # ports:
-    #   - 5432:5432
     env_file:
-      - ./frontend/.env
+      - ./frontend/.postgres.env
     command: |
       postgres
       -c wal_level=logical

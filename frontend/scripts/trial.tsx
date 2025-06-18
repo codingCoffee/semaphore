@@ -12,7 +12,7 @@ ${message}
     headers: {
       Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
       "Content-Type": "application/json",
-      "HTTP-Referer": "https://codingcoffee.dev",
+      "HTTP-Referer": "https://semaphore.chat",
       "X-Title": "Semaphore Chat",
     },
     body: JSON.stringify({

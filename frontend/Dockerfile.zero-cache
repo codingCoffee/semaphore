@@ -1,0 +1,21 @@
+
+FROM node:24.1.0-bookworm
+
+WORKDIR /app
+
+# Copy package files and install dependencies
+RUN npm i @rocicorp/zero
+COPY package*.json ./
+
+# Copy app source code
+COPY . .
+
+# Expose port 4848
+EXPOSE 4848
+
+# Use unprivileged user for security
+USER node
+
+# Start the Next.js app
+CMD ["npx", "zero-cache-dev"]
+

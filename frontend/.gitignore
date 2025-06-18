@@ -31,6 +31,10 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
+.nextjs.env
+.postgres.env
+.whodb.env
+.zero-cache.dev.env
 .env*
 
 # vercel
