@@ -63,6 +63,9 @@ export const LLMResponse = pgTable("LLMResponse", {
   question: text("question").notNull(),
   answer: text("answer"),
   isPending: boolean("is_pending").default(true),
+  createdBy: uuid("created_by").references(() => User.id, {
+    onDelete: "restrict",
+  }),
   createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "string" })
     .notNull()

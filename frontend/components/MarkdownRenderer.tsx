@@ -28,7 +28,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
     // Find all code blocks (Shiki wraps them in <pre class="shiki">)
     const codeBlocks = containerRef.current.querySelectorAll("pre.shiki");
 
-    codeBlocks.forEach((block) => {
+    (codeBlocks as NodeListOf<HTMLPreElement>).forEach((block) => {
       // Skip if already has a copy button
       if (block.querySelector(".copy-code-btn")) return;
 

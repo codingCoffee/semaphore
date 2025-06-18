@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useCallback, useState } from "react";
+import { useState } from "react";
 import { LogIn } from "lucide-react";
 import * as React from "react";
 import { useZero } from "@/components/zero-provider";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { useQuery } from "@rocicorp/zero/react";
 
 import { login } from "@/lib/actions/auth";
@@ -55,7 +54,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects chats={chats} />
       </SidebarContent>
       <SidebarFooter className="pb-10">
-        <Dialog isOpen={false}>
+        <Dialog>
           <form>
             <DialogTrigger asChild>
               <Button className="w-full h-[3rem]" variant="outline">

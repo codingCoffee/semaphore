@@ -36,7 +36,10 @@ const highlighterPromise = createHighlighter({
   themes: [lightTheme, darkTheme],
 });
 
-export function useMarkdownRenderer(markdown: string, theme: string): string {
+export function useMarkdownRenderer(
+  markdown: string,
+  theme: string | undefined,
+): string {
   const [html, setHtml] = useState<string>("");
 
   useEffect(() => {

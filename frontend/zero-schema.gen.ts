@@ -65,7 +65,7 @@ export const schema = {
         },
         createdBy: {
           type: "string",
-          optional: false,
+          optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
             "Chat",
@@ -164,6 +164,16 @@ export const schema = {
             "isPending"
           >,
           serverName: "is_pending",
+        },
+        createdBy: {
+          type: "string",
+          optional: true,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "LLMResponse",
+            "createdBy"
+          >,
+          serverName: "created_by",
         },
         createdAt: {
           type: "number",

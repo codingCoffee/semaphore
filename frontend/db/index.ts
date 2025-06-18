@@ -7,6 +7,4 @@ const pool = new Pool({
 });
 const db = drizzle({ client: pool, logger: true });
 
-const result = await db.execute("select 1");
-
 export { db };

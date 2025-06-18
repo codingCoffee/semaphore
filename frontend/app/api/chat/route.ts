@@ -143,7 +143,7 @@ export async function POST(req: Request) {
       .insert(Chat)
       .values({
         title: chatTitlePlaceholder,
-        is_public: false,
+        isPublic: false,
         createdBy: "cceae8f8-042e-44a4-9139-799fbee1cbbb",
       })
       .returning({

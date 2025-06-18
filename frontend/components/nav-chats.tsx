@@ -31,7 +31,7 @@ export function NavProjects({
 }: {
   chats: {
     title: string;
-    id: string;
+    id: string | null;
   }[];
 }) {
   const { isMobile } = useSidebar();

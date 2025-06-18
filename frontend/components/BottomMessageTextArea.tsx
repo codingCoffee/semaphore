@@ -29,7 +29,7 @@ import {
 import models from "@/data/openrouterModels.json";
 
 type BottomMessageTextAreaProps = {
-  endOfMessagesRef: RefObject<HTMLDivElement> | null;
+  endOfMessagesRef: RefObject<HTMLDivElement | null>;
 };
 
 export function BottomMessageTextArea({
@@ -97,7 +97,9 @@ export function BottomMessageTextArea({
               onKeyDown={(e) => {
                 if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
                   e.preventDefault(); // Prevent the default action
-                  document.querySelector('button[type="submit"]')?.click(); // Trigger the submit button click
+                  document
+                    .querySelector<HTMLButtonElement>('button[type="submit"]')
+                    ?.click(); // Trigger the submit button click
                 }
               }}
             />

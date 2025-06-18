@@ -1,12 +1,12 @@
 "use client";
 
+import { useRef } from "react";
 import { BottomMessageTextArea } from "@/components/BottomMessageTextArea";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Sparkles } from "lucide-react";
 
 export default function Home() {
+  const endOfMessagesRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <div className="flex flex-1 flex-col items-center">
       <div className="flex flex-col items-center space-y-2 mt-16">
@@ -26,7 +26,7 @@ export default function Home() {
         </p>
       </div>
 
-      <BottomMessageTextArea endOfMessagesRef={null} />
+      <BottomMessageTextArea endOfMessagesRef={endOfMessagesRef} />
     </div>
   );
 }
