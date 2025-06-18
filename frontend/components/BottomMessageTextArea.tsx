@@ -39,7 +39,7 @@ export function BottomMessageTextArea({
     chatId = pathname.split("/")[2];
   }
 
-  const [aiModel, setAIModel] = useState("google/gemma-3-12b-it:free");
+  const [aiModel, setAIModel] = useState("openai/gpt-4.1-nano");
   const [input, setInput] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -64,6 +64,7 @@ export function BottomMessageTextArea({
       if (res.ok) {
         const data = await res.json();
         setInput("");
+        setIsDisabled(true);
         const requiredPathname = `/c/${data.id}`;
         if (pathname !== requiredPathname) {
           redirect(requiredPathname);
@@ -114,8 +115,11 @@ export function BottomMessageTextArea({
                       {models
                         .filter(
                           (model) =>
-                            model.id?.includes("openai") ||
-                            model.id?.includes("google"),
+                            model.architecture?.input_modalities?.includes(
+                              "text",
+                            ) &&
+                            parseFloat(model.pricing?.prompt || "1") <=
+                              0.0000001,
                         )
                         .map((model) => (
                           <DropdownMenuRadioItem

@@ -212,4 +212,8 @@
     background: #f3f3f3;
     font-weight: bold;
   }
+
+  .markdown a {
+    text-decoration: underline;
+  }
 }
