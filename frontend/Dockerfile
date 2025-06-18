@@ -25,7 +25,6 @@ RUN npm ci --only=production
 # Copy built app and public assets from build stage
 COPY --from=build /app/.next ./.next
 COPY --from=build /app/public ./public
-COPY --from=build /app/drizzle.config.json ./drizzle.config.json
 
 # Expose port 3000
 EXPOSE 3000
