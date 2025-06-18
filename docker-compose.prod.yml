@@ -35,6 +35,17 @@ services:
       - ./frontend/.nextjs.env
       - ./frontend/.env.production
 
+  frontend-dev:
+    image: node:24.1.0-bookworm
+    restart: unless-stopped
+    command: "sleep inf"
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    env_file:
+      - ./frontend/.nextjs.env
+      - ./frontend/.env.production
+
   zero-cache:
     image: codingcoffee/semaphore-zero-cache
     build:
