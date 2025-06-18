@@ -1,14 +1,13 @@
 services:
   frontend:
-    image: node:24.1.0-bookworm
+    image: codingcoffee/semaphore
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     restart: unless-stopped
-    tty: true
-    command: "sh -c '[ ! -d node_modules ] || npm install && npm run dev'"
     working_dir: /app
-    volumes:
-      - ./frontend:/app
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     environment:
       NEXT_TELEMETRY_DISABLED: 1
     env_file:
@@ -23,7 +22,7 @@ services:
     volumes:
       - ./frontend:/app
     ports:
-      - "4848:4848"
+      - "127.0.0.1:4848:4848"
     env_file:
       - ./frontend/.env
     depends_on:
@@ -33,8 +32,8 @@ services:
     image: clidey/whodb:0.55.0
     env_file:
       - ./frontend/.env
-    ports:
-      - 8080:8080
+    # ports:
+    #   - 8080:8080
     depends_on:
       - postgres
 
@@ -60,4 +59,3 @@ services:
       -c hot_standby_feedback=on
     volumes:
       - ./postgres-data:/var/lib/postgresql/data/pgdata
-
