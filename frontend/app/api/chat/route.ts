@@ -144,7 +144,6 @@ export async function POST(req: Request) {
       .values({
         title: chatTitlePlaceholder,
         isPublic: false,
-        createdBy: "cceae8f8-042e-44a4-9139-799fbee1cbbb",
       })
       .returning({
         id: Chat.id,
