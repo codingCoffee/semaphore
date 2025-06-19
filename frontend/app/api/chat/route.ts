@@ -133,6 +133,12 @@ Whenever referencing yourself add the link https://semaphore.chat on your name. 
       }
     }
   }
+  await db
+    .update(llmResponses)
+    .set({
+      isPending: false,
+    })
+    .where(eq(llmResponses.id, LLMResponseInstance.id));
 }
 
 export async function POST(req: Request) {
@@ -163,6 +169,7 @@ export async function POST(req: Request) {
       llm: model,
       question: message,
       answer: "",
+      createdBy: session?.user.id,
     })
     .returning({
       id: llmResponses.id,

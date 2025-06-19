@@ -1,5 +1,5 @@
 {
-  "id": "89dfb378-f236-470e-9d62-233bee24fb29",
+  "id": "17067891-cef1-4a24-b3c2-a326149ae45c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -211,8 +211,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "is_public": {
-          "name": "is_public",
+        "isPublic": {
+          "name": "isPublic",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
@@ -224,21 +224,21 @@
           "primaryKey": false,
           "notNull": false
         },
-        "deleted_at": {
-          "name": "deleted_at",
+        "deletedAt": {
+          "name": "deletedAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false
         },
-        "created_at": {
-          "name": "created_at",
+        "createdAt": {
+          "name": "createdAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
-        "updated_at": {
-          "name": "updated_at",
+        "updatedAt": {
+          "name": "updatedAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -278,8 +278,8 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "chat_id": {
-          "name": "chat_id",
+        "chatId": {
+          "name": "chatId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
@@ -302,28 +302,28 @@
           "primaryKey": false,
           "notNull": false
         },
-        "is_pending": {
-          "name": "is_pending",
+        "isPending": {
+          "name": "isPending",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
           "default": true
         },
-        "created_by": {
-          "name": "created_by",
+        "createdBy": {
+          "name": "createdBy",
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
         },
-        "created_at": {
-          "name": "created_at",
+        "createdAt": {
+          "name": "createdAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
-        "updated_at": {
-          "name": "updated_at",
+        "updatedAt": {
+          "name": "updatedAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -332,12 +332,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "llmResponse_chat_id_chat_id_fk": {
-          "name": "llmResponse_chat_id_chat_id_fk",
+        "llmResponse_chatId_chat_id_fk": {
+          "name": "llmResponse_chatId_chat_id_fk",
           "tableFrom": "llmResponse",
           "tableTo": "chat",
           "columnsFrom": [
-            "chat_id"
+            "chatId"
           ],
           "columnsTo": [
             "id"
@@ -345,12 +345,12 @@
           "onDelete": "restrict",
           "onUpdate": "no action"
         },
-        "llmResponse_created_by_user_id_fk": {
-          "name": "llmResponse_created_by_user_id_fk",
+        "llmResponse_createdBy_user_id_fk": {
+          "name": "llmResponse_createdBy_user_id_fk",
           "tableFrom": "llmResponse",
           "tableTo": "user",
           "columnsFrom": [
-            "created_by"
+            "createdBy"
           ],
           "columnsTo": [
             "id"

@@ -266,7 +266,6 @@ export const schema = {
             "chats",
             "isPublic"
           >,
-          serverName: "is_public",
         },
         createdBy: {
           type: "string",
@@ -285,7 +284,6 @@ export const schema = {
             "chats",
             "deletedAt"
           >,
-          serverName: "deleted_at",
         },
         createdAt: {
           type: "number",
@@ -295,7 +293,6 @@ export const schema = {
             "chats",
             "createdAt"
           >,
-          serverName: "created_at",
         },
         updatedAt: {
           type: "number",
@@ -305,7 +302,6 @@ export const schema = {
             "chats",
             "updatedAt"
           >,
-          serverName: "updated_at",
         },
       },
       primaryKey: ["id"],
@@ -331,7 +327,6 @@ export const schema = {
             "llmResponses",
             "chatId"
           >,
-          serverName: "chat_id",
         },
         llm: {
           type: "string",
@@ -368,7 +363,6 @@ export const schema = {
             "llmResponses",
             "isPending"
           >,
-          serverName: "is_pending",
         },
         createdBy: {
           type: "string",
@@ -378,7 +372,6 @@ export const schema = {
             "llmResponses",
             "createdBy"
           >,
-          serverName: "created_by",
         },
         createdAt: {
           type: "number",
@@ -388,7 +381,6 @@ export const schema = {
             "llmResponses",
             "createdAt"
           >,
-          serverName: "created_at",
         },
         updatedAt: {
           type: "number",
@@ -398,7 +390,6 @@ export const schema = {
             "llmResponses",
             "updatedAt"
           >,
-          serverName: "updated_at",
         },
       },
       primaryKey: ["id"],

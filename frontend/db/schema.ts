@@ -136,13 +136,13 @@ export const chats = pgTable("chat", {
     .primaryKey()
     .default(sql`gen_random_uuid()`),
   title: varchar("title", { length: 255 }).notNull(),
-  isPublic: boolean("is_public").default(false),
+  isPublic: boolean("isPublic").default(false),
   createdBy: uuid("createdBy").references(() => users.id, {
     onDelete: "restrict",
   }),
-  deletedAt: timestamp("deleted_at", { mode: "string" }),
-  createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
-  updatedAt: timestamp("updated_at", { mode: "string" })
+  deletedAt: timestamp("deletedAt", { mode: "string" }),
+  createdAt: timestamp("createdAt", { mode: "string" }).notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt", { mode: "string" })
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`)
     .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
@@ -152,18 +152,18 @@ export const llmResponses = pgTable("llmResponse", {
   id: uuid("id")
     .primaryKey()
     .default(sql`gen_random_uuid()`),
-  chatId: uuid("chat_id")
+  chatId: uuid("chatId")
     .notNull()
     .references(() => chats.id, { onDelete: "restrict" }),
   llm: varchar("llm").notNull(),
   question: text("question").notNull(),
   answer: text("answer"),
-  isPending: boolean("is_pending").default(true),
-  createdBy: uuid("created_by").references(() => users.id, {
+  isPending: boolean("isPending").default(true),
+  createdBy: uuid("createdBy").references(() => users.id, {
     onDelete: "restrict",
   }),
-  createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
-  updatedAt: timestamp("updated_at", { mode: "string" })
+  createdAt: timestamp("createdAt", { mode: "string" }).notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt", { mode: "string" })
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`)
     .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
