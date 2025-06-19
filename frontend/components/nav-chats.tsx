@@ -26,14 +26,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-export function NavProjects({
-  chats,
-}: {
-  chats: {
-    title: string;
-    id: string | null;
-  }[];
-}) {
+export function NavProjects({ chats }: { chats: any[] }) {
   const { isMobile } = useSidebar();
 
   return (

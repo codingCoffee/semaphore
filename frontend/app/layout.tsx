@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/ModeToggle";
-import { ZeroProvider } from "@/components/zero-provider";
+import { ZeroInit } from "@/components/zero-init";
 import { SessionProvider } from "next-auth/react";
 import { Geist, Geist_Mono, Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { AppSidebar } from "@/components/app-sidebar";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
@@ -65,7 +58,7 @@ export default function RootLayout({
         >
           <div className="min-h-screen selection:bg-red-200 dark:selection:bg-red-900">
             <SessionProvider>
-              <ZeroProvider>
+              <ZeroInit>
                 <SidebarProvider>
                   <AppSidebar />
                   <SidebarInset>
@@ -78,7 +71,7 @@ export default function RootLayout({
                     {children}
                   </SidebarInset>
                 </SidebarProvider>
-              </ZeroProvider>
+              </ZeroInit>
             </SessionProvider>
             <footer className="flex"></footer>
           </div>

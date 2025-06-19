@@ -2,8 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-import { useZero } from "@/components/zero-provider";
-import { useQuery } from "@rocicorp/zero/react";
+import { useZero, useQuery } from "@rocicorp/zero/react";
 
 import { usePathname } from "next/navigation";
 import { BottomMessageTextArea } from "@/components/BottomMessageTextArea";

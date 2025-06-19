@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { LogIn } from "lucide-react";
 import * as React from "react";
-import { useZero } from "@/components/zero-provider";
+import { useZero, useQuery } from "@rocicorp/zero/react";
+
 import { Button } from "@/components/ui/button";
-import { useQuery } from "@rocicorp/zero/react";
 
 import { login } from "@/lib/actions/auth";
 import { NavUser } from "@/components/nav-user";
