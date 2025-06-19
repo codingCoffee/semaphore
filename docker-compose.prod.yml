@@ -47,10 +47,7 @@ services:
       - ./frontend/.env.production
 
   zero-cache:
-    image: codingcoffee/semaphore-zero-cache
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.zero-cache
+    image: rocicorp/zero:0.20.2025052100
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
