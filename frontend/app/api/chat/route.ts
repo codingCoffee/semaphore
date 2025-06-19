@@ -137,9 +137,9 @@ Whenever referencing yourself add the link https://semaphore.chat on your name. 
 export async function POST(req: Request) {
   let { message, model, chatId } = await req.json();
 
-  let ChatInstance = null;
+  let chatInstance = null;
   if (chatId === null) {
-    const ChatInstances = await db
+    const chatInstances = await db
       .insert(chats)
       .values({
         title: chatTitlePlaceholder,
@@ -149,8 +149,8 @@ export async function POST(req: Request) {
         id: chats.id,
         title: chats.title,
       });
-    ChatInstance = ChatInstances[0];
-    chatId = ChatInstance.id;
+    chatInstance = chatInstances[0];
+    chatId = chatInstance.id;
   }
 
   const LLMResponseInstances = await db
@@ -168,7 +168,7 @@ export async function POST(req: Request) {
   const LLMResponseInstance = LLMResponseInstances[0];
 
   after(() => {
-    if (ChatInstance && ChatInstance.title === chatTitlePlaceholder) {
+    if (chatInstance && chatInstance.title === chatTitlePlaceholder) {
       updateChatTitleBackgroundTask(LLMResponseInstance, message);
     }
     callOpenRouterBackgroundTask(LLMResponseInstance, model, message);

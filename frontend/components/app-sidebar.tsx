@@ -36,14 +36,18 @@ import { useSession } from "next-auth/react";
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [byokKey, setByok] = useState("");
   const z = useZero();
+  const { status, data: session } = useSession();
 
-  const [chats] = useQuery(z.query.chats.orderBy("createdAt", "desc"));
+  const [chats] = useQuery(
+    z.query.chats
+      .where("deletedAt", "IS", null)
+      .where("createdBy", "IS", session?.user.id || null)
+      .orderBy("createdAt", "desc"),
+  );
 
   const saveBYOK = () => {
     console.log(byokKey);
   };
-
-  const { status } = useSession();
 
   return (
     <Sidebar collapsible="icon" {...props}>
