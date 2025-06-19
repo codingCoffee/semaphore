@@ -14,11 +14,12 @@ export default function Home() {
           <Sparkles className="h-6 w-6" />
         </div>
         <h1 className="text-3xl font-semibold text-center">
-          How can I help you today?
+          How can <span className="text-red-500">Semaphore</span> help you
+          today?
         </h1>
         <p className="text-gray-400 text-center max-w-lg">
-          I'm Semaphore, an AI assistant, designed to help answer questions,
-          provide insights, and facilitate communication seamlessly.
+          I'm an AI assistant, designed to help answer questions, provide
+          insights, and facilitate communication seamlessly.
           <br />
           <br />
           You can ask me anything, from drafting an email to details about my

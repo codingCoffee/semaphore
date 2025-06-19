@@ -37,8 +37,27 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Semaphore Chat",
-  description: "The best open-source AI chat app out there!",
+  title: "Semaphore",
+  description: "The simplest, no nonsense AI chat app!",
+  keywords: ["AI", "Chat", "LLM"],
+  authors: [{ name: "Ameya Shenoy", url: "https://codingcoffee.dev" }],
+  creator: "Ameya Shenoy",
+  publisher: "Ameya Shenoy",
+  metadataBase: new URL("https://semaphore.chat"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    images: "/og-image.png",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Semaphore",
+    description: "The simplest, no nonsense AI chat app!",
+    creator: "@codingcoffeeX",
+    creatorId: "523264272",
+    images: ["https://semaphore.chat/og-image.png"],
+  },
 };
 
 export default function RootLayout({
