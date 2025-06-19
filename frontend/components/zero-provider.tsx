@@ -36,8 +36,10 @@ function useZero<S extends Schema, MD extends CustomMutatorDefs<S>>(
   const [zero, setZero] = useState<any | undefined>(undefined);
 
   useEffect(() => {
-
-    console.log("THIS IS ON CLIENT 1 ###################################################")
+    console.log(
+      "THIS IS ON CLIENT 1 ###################################################",
+    );
+    console.log(process.env.NEXT_PUBLIC_SERVER);
     const z = new Zero({
       userID: "bypass",
       schema,
