@@ -14,6 +14,8 @@ export default function ChatPage() {
   let chatId = pathname.split("/")[2];
 
   const z = useZero();
+
+  console.log("THIS IS ON CLIENT 3 ###################################################")
   const [LLMResponseInstances] = useQuery(
     z.query.LLMResponse.where("chatId", chatId).orderBy("createdAt", "asc"),
   );
