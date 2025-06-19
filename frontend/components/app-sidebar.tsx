@@ -74,7 +74,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <form>
             <DialogTrigger asChild>
               <Button
-                className={`w-full h-[3rem] ${byokKey ? (isValidByokKey ? "bg-green-200" : "bg-red-200") : ""}`}
+                className={`w-full h-[3rem] cursor-pointer ${byokKey ? (isValidByokKey ? "bg-green-200" : "bg-red-200") : ""}`}
                 variant="outline"
               >
                 Bring Your Own Keys
@@ -122,7 +122,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <NavUser />
         ) : (
           <div className="flex w-full justify-center items-center">
-            <Button className="w-full h-[3rem]" onClick={() => login()}>
+            <Button className="w-full h-[3rem] cursor-pointer" onClick={() => login()}>
               <LogIn />
               Continue with Google
             </Button>
