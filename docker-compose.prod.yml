@@ -32,7 +32,6 @@ services:
     ports:
       - "127.0.0.1:3000:3000"
     env_file:
-      - ./frontend/.nextjs.env
       - ./frontend/.env.production
 
   frontend-dev:
@@ -43,7 +42,6 @@ services:
     volumes:
       - ./frontend:/app
     env_file:
-      - ./frontend/.nextjs.env
       - ./frontend/.env.production
 
   zero-cache:
