@@ -8,7 +8,3 @@ export const pool = new Pool({
 });
 export const db = drizzle({ client: pool, logger: true });
 
-export const authPool = new Pool({
-  connectionString: process.env.AUTH_DRIZZLE_URL,
-});
-export const authDb = drizzle({ client: authPool, logger: true });

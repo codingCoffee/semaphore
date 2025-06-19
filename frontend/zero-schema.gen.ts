@@ -486,7 +486,7 @@ export const schema = {
         },
         username: {
           type: "string",
-          optional: false,
+          optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
             "users",
@@ -495,7 +495,7 @@ export const schema = {
         },
         hashedPassword: {
           type: "string",
-          optional: false,
+          optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
             "users",

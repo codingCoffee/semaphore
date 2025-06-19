@@ -1,5 +1,5 @@
 {
-  "id": "8a1af7c2-8d7e-4853-9b78-86ca998c509d",
+  "id": "89dfb378-f236-470e-9d62-233bee24fb29",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -449,13 +449,13 @@
           "name": "username",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "hashedPassword": {
           "name": "hashedPassword",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "createdAt": {
           "name": "createdAt",
