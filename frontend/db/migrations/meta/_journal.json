@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1749925269936,
-      "tag": "0000_deep_nick_fury",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1750084824747,
-      "tag": "0001_true_wasp",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1750148692583,
-      "tag": "0002_past_iron_monger",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1750152997140,
-      "tag": "0003_colorful_wendell_rand",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1750241266287,
-      "tag": "0004_odd_sumo",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1750268013220,
-      "tag": "0005_smooth_boomerang",
+      "when": 1750337940510,
+      "tag": "0000_stiff_the_leader",
       "breakpoints": true
     }
   ]

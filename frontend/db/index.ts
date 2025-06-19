@@ -1,10 +1,14 @@
 import { pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
 import { drizzle } from "drizzle-orm/node-postgres";
+import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { Pool } from "pg";
 
-const pool = new Pool({
+export const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
-const db = drizzle({ client: pool, logger: true });
+export const db = drizzle({ client: pool, logger: true });
 
-export { db };
+export const authPool = new Pool({
+  connectionString: process.env.AUTH_DRIZZLE_URL,
+});
+export const authDb = drizzle({ client: authPool, logger: true });

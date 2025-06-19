@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Zero } from "@rocicorp/zero";
 
 import { schema, type Schema } from "@/zero-schema.gen";
@@ -77,7 +76,7 @@ function preload(z: Zero<Schema>) {
     // avoid having the UI jostle. So we want to preload in the same order we
     // tend to display in the UI. That way local results are always also the
     // top ranked results.
-    z.query.Chat.orderBy("createdAt", "desc").limit(1_000).preload({
+    z.query.chats.orderBy("createdAt", "desc").limit(1_000).preload({
       ttl: "1m",
     });
   }, 1_000);

@@ -16,7 +16,7 @@ export default function ChatPage() {
   const z = useZero();
 
   const [LLMResponseInstances] = useQuery(
-    z.query.LLMResponse.where("chatId", chatId).orderBy("createdAt", "asc"),
+    z.query.llmResponses.where("chatId", chatId).orderBy("createdAt", "asc"),
   );
 
   const endOfMessagesRef = useRef<HTMLDivElement | null>(null);

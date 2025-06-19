@@ -37,7 +37,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [byokKey, setByok] = useState("");
   const z = useZero();
 
-  const [chats] = useQuery(z.query.Chat.orderBy("createdAt", "desc"));
+  const [chats] = useQuery(z.query.chats.orderBy("createdAt", "desc"));
 
   const saveBYOK = () => {
     console.log(byokKey);

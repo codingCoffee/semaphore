@@ -3,7 +3,7 @@ import { db } from "@/db/index";
 import { asc, eq } from "drizzle-orm";
 import { after } from "next/server";
 
-import { Chat, LLMResponse } from "@/db/schema";
+import { chats, llmResponses } from "@/db/schema";
 
 const chatTitlePlaceholder = " * * * ";
 
@@ -35,11 +35,11 @@ async function updateChatTitleBackgroundTask(
 
   const data = await resp.json();
   await db
-    .update(Chat)
+    .update(chats)
     .set({
       title: data.choices[0].message.content,
     })
-    .where(eq(Chat.id, LLMResponseInstance.chatId));
+    .where(eq(chats.id, LLMResponseInstance.chatId));
 }
 
 async function callOpenRouterBackgroundTask(
@@ -47,11 +47,11 @@ async function callOpenRouterBackgroundTask(
   model: string,
   message: string,
 ) {
-  const llmResponses = await db
+  const llmResponseInstances = await db
     .select()
-    .from(LLMResponse)
-    .where(eq(LLMResponse.chatId, LLMResponseInstance.chatId))
-    .orderBy(asc(LLMResponse.createdAt));
+    .from(llmResponses)
+    .where(eq(llmResponses.chatId, LLMResponseInstance.chatId))
+    .orderBy(asc(llmResponses.createdAt));
   const messages = [
     {
       role: "system",
@@ -60,7 +60,7 @@ async function callOpenRouterBackgroundTask(
 Whenever referencing yourself add the link https://semaphore.chat on your name. And whenever referencing Ameya Shenoy, add the link https://codingcoffee.dev on his name`,
     },
   ];
-  for (const interaction of llmResponses) {
+  for (const interaction of llmResponseInstances) {
     messages.push({
       role: "user",
       content: interaction.question,
@@ -113,17 +113,19 @@ Whenever referencing yourself add the link https://semaphore.chat on your name. 
       if (!trimmed || trimmed === "data: [DONE]") continue;
 
       try {
-        const json = JSON.parse(trimmed.replace("data: ", ""));
+        const trimmedData = trimmed.replace("data: ", "");
+        if (trimmedData === ": OPENROUTER PROCESSING") continue;
+        const json = JSON.parse(trimmedData);
         const delta = json.choices[0]?.delta;
         const chunk = delta?.content;
         if (chunk) {
           completeResponse += chunk;
           await db
-            .update(LLMResponse)
+            .update(llmResponses)
             .set({
               answer: completeResponse,
             })
-            .where(eq(LLMResponse.id, LLMResponseInstance.id));
+            .where(eq(llmResponses.id, LLMResponseInstance.id));
         }
       } catch (e) {
         console.error("Error parsing chunk:", e);
@@ -138,21 +140,21 @@ export async function POST(req: Request) {
   let ChatInstance = null;
   if (chatId === null) {
     const ChatInstances = await db
-      .insert(Chat)
+      .insert(chats)
       .values({
         title: chatTitlePlaceholder,
         isPublic: false,
       })
       .returning({
-        id: Chat.id,
-        title: Chat.title,
+        id: chats.id,
+        title: chats.title,
       });
     ChatInstance = ChatInstances[0];
     chatId = ChatInstance.id;
   }
 
   const LLMResponseInstances = await db
-    .insert(LLMResponse)
+    .insert(llmResponses)
     .values({
       chatId: chatId,
       llm: model,
@@ -160,8 +162,8 @@ export async function POST(req: Request) {
       answer: "",
     })
     .returning({
-      id: LLMResponse.id,
-      chatId: LLMResponse.chatId,
+      id: llmResponses.id,
+      chatId: llmResponses.chatId,
     });
   const LLMResponseInstance = LLMResponseInstances[0];
 

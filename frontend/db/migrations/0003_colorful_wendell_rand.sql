@@ -1,1 +1,0 @@
-ALTER TABLE "Chat" ADD COLUMN "deleted_at" timestamp;
