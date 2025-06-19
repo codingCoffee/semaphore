@@ -19,11 +19,9 @@ import type { DrizzleToZeroSchema, ZeroCustomType } from "drizzle-zero";
 import type * as drizzleSchema from "./db/schema";
 
 import {
-  ANYONE_CAN,
   ANYONE_CAN_DO_ANYTHING,
   definePermissions,
   PermissionsConfig,
-  ExpressionBuilder,
 } from "@rocicorp/zero";
 
 type ZeroSchema = DrizzleToZeroSchema<typeof drizzleSchema>;
@@ -575,19 +573,9 @@ type AuthData = {
   sub: string;
 };
 export const permissions = definePermissions<AuthData, Schema>(schema, () => {
-  const allowIfChatCreator = (
-    authData: AuthData,
-    { cmp }: ExpressionBuilder<Schema, "chats">,
-  ) => cmp("createdBy", authData.sub);
-
   return {
     users: ANYONE_CAN_DO_ANYTHING,
     llmResponses: ANYONE_CAN_DO_ANYTHING,
     chats: ANYONE_CAN_DO_ANYTHING,
-    // chats: {
-    //   row: {
-    //     select: [allowIfChatCreator],
-    //   },
-    // },
   } satisfies PermissionsConfig<AuthData, Schema>;
 });
