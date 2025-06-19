@@ -117,7 +117,6 @@ Whenever referencing yourself add the link https://semaphore.chat on your name. 
         const delta = json.choices[0]?.delta;
         const chunk = delta?.content;
         if (chunk) {
-          console.log("Received chunk:", chunk);
           completeResponse += chunk;
           await db
             .update(LLMResponse)
@@ -126,7 +125,6 @@ Whenever referencing yourself add the link https://semaphore.chat on your name. 
             })
             .where(eq(LLMResponse.id, LLMResponseInstance.id));
         }
-        console.log("completeResponse: ", completeResponse);
       } catch (e) {
         console.error("Error parsing chunk:", e);
       }

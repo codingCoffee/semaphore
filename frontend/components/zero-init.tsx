@@ -11,11 +11,6 @@ import { useSession } from "next-auth/react";
 
 export function ZeroInit({ children }: { children: React.ReactNode }) {
   const session = useSession();
-  console.log("######################################################");
-  console.log(session);
-  console.log(process.env.NEXT_PUBLIC_SERVER);
-  console.log("######################################################");
-
   const opts = useMemo(() => {
     return {
       schema,
