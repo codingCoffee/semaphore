@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/db/index";
 import { asc, eq } from "drizzle-orm";
 import { after } from "next/server";
+import { auth } from "@/lib/auth";
 
 import { chats, llmResponses } from "@/db/schema";
 
@@ -136,6 +137,7 @@ Whenever referencing yourself add the link https://semaphore.chat on your name. 
 
 export async function POST(req: Request) {
   let { message, model, chatId } = await req.json();
+  const session = await auth();
 
   let chatInstance = null;
   if (chatId === null) {
@@ -144,6 +146,7 @@ export async function POST(req: Request) {
       .values({
         title: chatTitlePlaceholder,
         isPublic: false,
+        createdBy: session?.user.id,
       })
       .returning({
         id: chats.id,

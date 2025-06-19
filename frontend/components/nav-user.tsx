@@ -26,8 +26,6 @@ export function NavUser() {
   const { data: session } = useSession();
   const router = useRouter();
 
-  console.log(session)
-
   return (
     <SidebarMenu>
       <SidebarMenuItem>
