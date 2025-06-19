@@ -3,6 +3,6 @@
   <h1>
       Semaphore
   </h1>
-  <h4>The simplest, no nonsense open source LLM chat application out there!</h4>
+  <h4>The simplest, no nonsense AI chat app!</h4>
 </div>
 
