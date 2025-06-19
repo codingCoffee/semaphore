@@ -1,6 +1,8 @@
 
 FROM node:24.1.0-bookworm AS build
 
+ENV NEXT_PUBLIC_SERVER=https://semaphore.chat
+
 WORKDIR /app
 
 # Copy package files and install dependencies
