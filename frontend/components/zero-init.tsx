@@ -1,5 +1,6 @@
 "use client";
 
+
 import { Zero } from "@rocicorp/zero";
 
 import { schema, type Schema } from "@/zero-schema.gen";
