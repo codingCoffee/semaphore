@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { LogIn } from "lucide-react";
+import { useStorage } from "../providers/StorageProvider";
+
 import * as React from "react";
 import { useZero, useQuery } from "@rocicorp/zero/react";
 
@@ -32,8 +34,11 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { getValue, setValue } = useStorage();
+
   const [byokKey, setByok] = useState("");
   const z = useZero();
   const { status, data: session } = useSession();
@@ -46,8 +51,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   );
 
   const saveBYOK = () => {
-    console.log(byokKey);
+    setValue("byokKey", byokKey);
   };
+
+  useEffect(() => {
+    setByok(getValue("byokKey"));
+  }, []);
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -85,6 +94,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     id="openrouter-customer-key"
                     name="openrouter-customer-key"
                     placeholder="sk-or-v1-..."
+                    value={byokKey}
                     onChange={(e) => setByok(e.target.value)}
                   />
                 </div>

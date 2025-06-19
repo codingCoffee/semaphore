@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUp, Paperclip, Search } from "lucide-react";
 import { AutosizeTextArea } from "@/components/AutoResizeTextArea";
 import { useCallback, useState } from "react";
+import { useStorage } from "../providers/StorageProvider";
 
 import Link from "next/link";
 
@@ -36,6 +37,9 @@ export function BottomMessageTextArea({
   endOfMessagesRef,
 }: BottomMessageTextAreaProps) {
   const pathname = usePathname();
+
+  const { getValue } = useStorage();
+
   let chatId = null;
   if (pathname.startsWith("/c/")) {
     chatId = pathname.split("/")[2];
@@ -59,6 +63,7 @@ export function BottomMessageTextArea({
           message: input,
           chatId: chatId,
           model: aiModel,
+          byokKey: getValue("byokKey"),
         }),
         headers: { "Content-Type": "application/json" },
       });

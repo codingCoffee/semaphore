@@ -11,11 +11,13 @@ const chatTitlePlaceholder = " * * * ";
 async function updateChatTitleBackgroundTask(
   LLMResponseInstance: any,
   message: string,
+  byokKey: string | null,
 ) {
+  const openRouterKeyToUse = byokKey || process.env.OPENROUTER_API_KEY;
   const resp = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      Authorization: `Bearer ${openRouterKeyToUse}`,
       "Content-Type": "application/json",
       "HTTP-Referer": "https://semaphore.chat",
       "X-Title": "Semaphore Chat",
@@ -47,7 +49,9 @@ async function callOpenRouterBackgroundTask(
   LLMResponseInstance: any,
   model: string,
   message: string,
+  byokKey: string | null,
 ) {
+  const openRouterKeyToUse = byokKey || process.env.OPENROUTER_API_KEY;
   const llmResponseInstances = await db
     .select()
     .from(llmResponses)
@@ -74,12 +78,14 @@ Whenever referencing yourself add the link https://semaphore.chat on your name. 
     }
   }
 
+  console.log("#########################################");
+  console.log(openRouterKeyToUse);
   const openRouterResponse = await fetch(
     "https://openrouter.ai/api/v1/chat/completions",
     {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        Authorization: `Bearer ${openRouterKeyToUse}`,
         "Content-Type": "application/json",
         "HTTP-Referer": "https://semaphore.chat",
         "X-Title": "Semaphore Chat",
@@ -142,7 +148,7 @@ Whenever referencing yourself add the link https://semaphore.chat on your name. 
 }
 
 export async function POST(req: Request) {
-  let { message, model, chatId } = await req.json();
+  let { message, model, chatId, byokKey } = await req.json();
   const session = await auth();
 
   let chatInstance = null;
@@ -179,9 +185,9 @@ export async function POST(req: Request) {
 
   after(() => {
     if (chatInstance && chatInstance.title === chatTitlePlaceholder) {
-      updateChatTitleBackgroundTask(LLMResponseInstance, message);
+      updateChatTitleBackgroundTask(LLMResponseInstance, message, byokKey);
     }
-    callOpenRouterBackgroundTask(LLMResponseInstance, model, message);
+    callOpenRouterBackgroundTask(LLMResponseInstance, model, message, byokKey);
   });
 
   return Response.json({
