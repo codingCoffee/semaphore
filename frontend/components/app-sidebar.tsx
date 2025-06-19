@@ -50,13 +50,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       .orderBy("createdAt", "desc"),
   );
 
-  const saveBYOK = () => {
-    setValue("byokKey", byokKey);
+  const saveBYOK = (value: string) => {
+    setValue("byokKey", value);
   };
 
   useEffect(() => {
     setByok(getValue("byokKey"));
-  }, []);
+  }, [getValue]);
+
+  const isValidByokKey =
+    byokKey.startsWith("sk-or-v1-") && byokKey.length == 73;
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -70,7 +73,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <Dialog>
           <form>
             <DialogTrigger asChild>
-              <Button className="w-full h-[3rem]" variant="outline">
+              <Button
+                className={`w-full h-[3rem] ${byokKey ? (isValidByokKey ? "bg-green-200" : "bg-red-200") : ""}`}
+                variant="outline"
+              >
                 Bring Your Own Keys
               </Button>
             </DialogTrigger>
@@ -89,31 +95,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </DialogHeader>
               <div className="grid gap-4">
                 <div className="grid gap-3">
-                  <Label htmlFor="openrouter-customer-key">Key</Label>
+                  <Label htmlFor="openrouter-customer-key">
+                    OpenRouter Key
+                  </Label>
                   <Input
                     id="openrouter-customer-key"
                     name="openrouter-customer-key"
                     placeholder="sk-or-v1-..."
                     value={byokKey}
-                    onChange={(e) => setByok(e.target.value)}
+                    className={
+                      isValidByokKey
+                        ? "border-green-200 focus-visible:ring-green-500"
+                        : "border-red-200 focus-visible:ring-red-500"
+                    }
+                    onChange={(e) => {
+                      saveBYOK(e.target.value);
+                      setByok(e.target.value);
+                    }}
                   />
                 </div>
               </div>
-              <DialogFooter>
-                <DialogClose asChild>
-                  <Button variant="outline">Cancel</Button>
-                </DialogClose>
-
-                <DialogClose asChild>
-                  <Button
-                    type="submit"
-                    className="cursor-pointer"
-                    onClick={() => saveBYOK()}
-                  >
-                    Save
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
             </DialogContent>
           </form>
         </Dialog>
