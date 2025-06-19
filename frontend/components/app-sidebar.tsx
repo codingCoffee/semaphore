@@ -59,7 +59,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   }, [getValue]);
 
   const isValidByokKey =
-    byokKey.startsWith("sk-or-v1-") && byokKey.length == 73;
+    byokKey && byokKey.startsWith("sk-or-v1-") && byokKey.length == 73;
 
   return (
     <Sidebar collapsible="icon" {...props}>
