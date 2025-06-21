@@ -113,6 +113,14 @@ export function BottomMessageTextArea({
                   document
                     .querySelector<HTMLButtonElement>('button[type="submit"]')
                     ?.click(); // Trigger the submit button click
+                } else if (e.shiftKey && e.key === "Enter") {
+                  e.preventDefault(); // Prevent the default action of the Enter key
+                  setInput((prev) => prev + "\n"); // Add a new line to the input
+                } else if (e.key === "Enter") {
+                  e.preventDefault(); // Prevent the default action
+                  document
+                    .querySelector<HTMLButtonElement>('button[type="submit"]')
+                    ?.click(); // Trigger the submit button click
                 }
               }}
             />
