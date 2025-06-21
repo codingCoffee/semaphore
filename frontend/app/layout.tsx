@@ -14,6 +14,11 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 import GSAPCursor from "@/components/CustomCursor";
 
@@ -89,9 +94,17 @@ export default function RootLayout({
                         <div className="flex items-center gap-2 px-2 rounded-md backdrop-blur-3xl">
                           <SidebarTrigger />
                           <ModeToggle />
-                          <Link href="https://github.com/codingcoffee/semaphore">
-                            <Icon icon="line-md:github-loop" />
-                          </Link>
+
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Link href="https://github.com/codingcoffee/semaphore">
+                                <Icon icon="line-md:github-loop" />
+                              </Link>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>Star me on GitHub</p>
+                            </TooltipContent>
+                          </Tooltip>
                         </div>
                       </header>
                       {children}
