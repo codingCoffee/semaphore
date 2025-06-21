@@ -24,6 +24,10 @@ export default function Home() {
           <br />
           You can ask me anything, from drafting an email to details about my
           creator!
+          <br />
+          <br />
+          Chats with are public when logged out. Login to make sure your chats
+          are only visible to you.
         </p>
       </div>
 

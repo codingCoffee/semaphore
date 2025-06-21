@@ -24,7 +24,7 @@ export function Team() {
             <SquareDashedBottomCode className="size-4" />
           </div>
           <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate font-medium">Semaphore Chat</span>
+            <span className="truncate font-medium">Semaphore Chat (Alpha)</span>
             <HoverCard>
               <HoverCardTrigger asChild>
                 <span className="truncate text-xs hover:underline">
