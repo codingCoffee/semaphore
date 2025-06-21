@@ -17,6 +17,7 @@
   "dependencies": {
     "@auth/drizzle-adapter": "^1.9.1",
     "@hookform/resolvers": "^5.1.1",
+    "@iconify/react": "^6.0.0",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-collapsible": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.14",

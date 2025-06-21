@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
+import Link from "next/link";
 import { ModeToggle } from "@/components/ModeToggle";
+import { Icon } from "@iconify/react";
 import { StorageProvider } from "@/providers/StorageProvider";
 import { ZeroInit } from "@/components/zero-init";
 import { SessionProvider } from "next-auth/react";
@@ -87,6 +89,9 @@ export default function RootLayout({
                         <div className="flex items-center gap-2 px-2 rounded-md backdrop-blur-3xl">
                           <SidebarTrigger />
                           <ModeToggle />
+                          <Link href="https://github.com/codingcoffee/semaphore">
+                            <Icon icon="line-md:github-loop" />
+                          </Link>
                         </div>
                       </header>
                       {children}
