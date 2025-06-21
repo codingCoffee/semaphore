@@ -26,7 +26,7 @@ export default function Home() {
           creator!
           <br />
           <br />
-          Chats with are public when logged out. Login to make sure your chats
+          Chats are public when logged out. Login to make sure your chats
           are only visible to you.
         </p>
       </div>

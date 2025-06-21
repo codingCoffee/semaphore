@@ -25,9 +25,11 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { Icon } from "@iconify/react";
 
 export function NavProjects({ chats }: { chats: any[] }) {
   const { isMobile } = useSidebar();
+  const chatTitlePlaceholder = " * * * ";
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
@@ -37,7 +39,11 @@ export function NavProjects({ chats }: { chats: any[] }) {
           <SidebarMenuItem key={item.id}>
             <SidebarMenuButton asChild>
               <Link href={`/c/${item.id}`}>
-                <span>{item.title}</span>
+                {item.title === chatTitlePlaceholder ? (
+                  <Icon icon="svg-spinners:pulse-multiple" />
+                ) : (
+                  <span>{item.title}</span>
+                )}
               </Link>
             </SidebarMenuButton>
             <DropdownMenu>

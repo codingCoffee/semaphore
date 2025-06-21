@@ -6,6 +6,7 @@ import { useZero, useQuery } from "@rocicorp/zero/react";
 
 import { usePathname } from "next/navigation";
 import { BottomMessageTextArea } from "@/components/BottomMessageTextArea";
+import { Icon } from "@iconify/react";
 
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 
@@ -38,7 +39,11 @@ export default function ChatPage() {
               </div>
             </div>
             <div className="p-5 pt-10 rounded-lg markdown">
-              <MarkdownRenderer markdown={item.answer ? item.answer : ""} />
+              {item.answer ? (
+                <MarkdownRenderer markdown={item.answer} />
+              ) : (
+                <Icon icon="svg-spinners:pulse-multiple" />
+              )}
             </div>
           </div>
         ))}
