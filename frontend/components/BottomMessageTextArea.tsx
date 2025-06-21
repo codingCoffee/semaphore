@@ -4,10 +4,11 @@ import React, { RefObject } from "react";
 
 import { usePathname, redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ArrowUp, Paperclip, Search } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { AutosizeTextArea } from "@/components/AutoResizeTextArea";
 import { useCallback, useState } from "react";
 import { useStorage } from "../providers/StorageProvider";
+import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
 
 import Link from "next/link";
 
@@ -38,16 +39,23 @@ export function BottomMessageTextArea({
 }: BottomMessageTextAreaProps) {
   const pathname = usePathname();
 
-  const { getValue } = useStorage();
+  const { setValue, getValue } = useStorage();
 
   let chatId = null;
   if (pathname.startsWith("/c/")) {
     chatId = pathname.split("/")[2];
   }
 
-  const [aiModel, setAIModel] = useState("openai/gpt-4.1-nano");
+  const [aiModel, setAIModel] = useState(
+    getValue(LOCAL_STORAGE_KEYS.AI_MODEL) || "openai/gpt-4.1-nano",
+  );
   const [input, setInput] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
+
+  const setAiModelInStorage = (value: string) => {
+    setAIModel(value);
+    setValue(LOCAL_STORAGE_KEYS.AI_MODEL, value);
+  };
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
@@ -63,7 +71,7 @@ export function BottomMessageTextArea({
           message: input,
           chatId: chatId,
           model: aiModel,
-          byokKey: getValue("byokKey"),
+          byokKey: getValue(LOCAL_STORAGE_KEYS.BYOK_KEY),
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -124,7 +132,7 @@ export function BottomMessageTextArea({
                     <DropdownMenuSeparator />
                     <DropdownMenuRadioGroup
                       value={aiModel}
-                      onValueChange={setAIModel}
+                      onValueChange={setAiModelInStorage}
                     >
                       {models
                         .filter(

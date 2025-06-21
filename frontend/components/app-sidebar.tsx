@@ -7,6 +7,8 @@ import { useStorage } from "../providers/StorageProvider";
 import * as React from "react";
 import { useZero, useQuery } from "@rocicorp/zero/react";
 
+import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
+
 import { Button } from "@/components/ui/button";
 
 import { login } from "@/lib/actions/auth";
@@ -51,11 +53,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   );
 
   const saveBYOK = (value: string) => {
-    setValue("byokKey", value);
+    setValue(LOCAL_STORAGE_KEYS.BYOK_KEY, value);
   };
 
   useEffect(() => {
-    setByok(getValue("byokKey"));
+    setByok(getValue(LOCAL_STORAGE_KEYS.BYOK_KEY));
   }, [getValue]);
 
   const isValidByokKey =
@@ -122,7 +124,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <NavUser />
         ) : (
           <div className="flex w-full justify-center items-center">
-            <Button className="w-full h-[3rem] cursor-pointer" onClick={() => login()}>
+            <Button
+              className="w-full h-[3rem] cursor-pointer"
+              onClick={() => login()}
+            >
               <LogIn />
               Continue with Google
             </Button>

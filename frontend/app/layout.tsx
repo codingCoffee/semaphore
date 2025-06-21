@@ -83,7 +83,7 @@ export default function RootLayout({
                   <SidebarProvider>
                     <AppSidebar />
                     <SidebarInset>
-                      <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 fixed z-20">
+                      <header className="flex h-16 shrink-0 items-center transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 fixed z-20">
                         <div className="flex items-center gap-2 px-2 rounded-md backdrop-blur-3xl">
                           <SidebarTrigger />
                           <ModeToggle />
