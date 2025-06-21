@@ -51,6 +51,7 @@ export default function ChatPage() {
         <div ref={endOfMessagesRef} />
       </div>
 
+
       <BottomMessageTextArea endOfMessagesRef={endOfMessagesRef} />
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { LogIn } from "lucide-react";
+import { Key, LogIn } from "lucide-react";
 import { useStorage } from "../providers/StorageProvider";
 
 import * as React from "react";
@@ -79,7 +79,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 className={`truncate w-full h-[3rem] cursor-pointer ${byokKey ? (isValidByokKey ? "bg-green-200" : "bg-red-200") : ""}`}
                 variant="outline"
               >
-                Bring Your Own Keys
+                <Key />
+                <span className="group-data-[collapsible=icon]:hidden">
+                  Bring Your Own Keys
+                </span>
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
@@ -129,7 +132,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               onClick={() => login()}
             >
               <LogIn />
-              Continue with Google
+              <span className="group-data-[collapsible=icon]:hidden">
+                Continue with Google
+              </span>
             </Button>
           </div>
         )}
