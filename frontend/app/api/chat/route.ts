@@ -20,7 +20,7 @@ async function crawlAndExtractText(url: string): Promise<string> {
   console.log(`Trying to scrape: ${url}`);
   try {
     // Fetch the HTML
-    const response = await axios.get(url);
+    const response = await axios.get(url, { timeout: 5000 });
     const html = response.data;
 
     // Parse the HTML and extract text
