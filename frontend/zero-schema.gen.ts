@@ -559,7 +559,18 @@ export const schema = {
       serverName: "verificationToken",
     },
   },
-  relationships: {},
+  relationships: {
+    llmResponses: {
+      creator: [
+        {
+          sourceField: ["createdBy"],
+          destField: ["id"],
+          destSchema: "users",
+          cardinality: "one",
+        },
+      ],
+    },
+  },
 } as const;
 
 /**

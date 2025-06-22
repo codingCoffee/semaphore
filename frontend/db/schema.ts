@@ -168,3 +168,13 @@ export const llmResponses = pgTable("llmResponse", {
     .default(sql`CURRENT_TIMESTAMP`)
     .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
 });
+
+export const llmResponseCreatorToUserRelations = relations(
+  llmResponses,
+  ({ one }) => ({
+    creator: one(users, {
+      fields: [llmResponses.createdBy],
+      references: [users.id],
+    }),
+  }),
+);

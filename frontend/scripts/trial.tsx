@@ -9,7 +9,6 @@ async function main() {
     engines: ["google"],
   });
   const limRes = res.results.slice(0, 3);
-  console.log(limRes);
 
   /**
    * Fetches the content of a website and returns its main text content.
