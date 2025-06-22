@@ -4,11 +4,13 @@ import React, { RefObject } from "react";
 
 import { usePathname, redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ArrowUp } from "lucide-react";
+import { Search, ArrowUp } from "lucide-react";
 import { AutosizeTextArea } from "@/components/AutoResizeTextArea";
 import { useCallback, useState } from "react";
 import { useStorage } from "../providers/StorageProvider";
 import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
+
+import { Toggle } from "@/components/ui/toggle";
 
 import Link from "next/link";
 
@@ -40,6 +42,7 @@ export function BottomMessageTextArea({
   const pathname = usePathname();
 
   const { setValue, getValue } = useStorage();
+  const [isSearchQuery, setIsSearchQuery] = useState(false);
 
   let chatId = null;
   if (pathname.startsWith("/c/")) {
@@ -72,6 +75,7 @@ export function BottomMessageTextArea({
           chatId: chatId,
           model: aiModel,
           byokKey: getValue(LOCAL_STORAGE_KEYS.BYOK_KEY),
+          isSearchQuery: isSearchQuery,
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -125,7 +129,7 @@ export function BottomMessageTextArea({
               }}
             />
             <div className="flex justify-between gap-5 items-center">
-              <div className="flex items-center gap-5 p-1">
+              <div className="flex items-center p-1 gap-1">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button
@@ -163,6 +167,24 @@ export function BottomMessageTextArea({
                     </DropdownMenuRadioGroup>
                   </DropdownMenuContent>
                 </DropdownMenu>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className="p-1">
+                      <Toggle
+                        aria-label="Search Internet"
+                        variant="outline"
+                        pressed={isSearchQuery}
+                        onPressedChange={setIsSearchQuery}
+                        className={`p-0 m-0 data-[state=on]:bg-red-200 dark:data-[state=on]:bg-red-900`}
+                      >
+                        <Search />
+                      </Toggle>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Web Search (Beta)</p>
+                  </TooltipContent>
+                </Tooltip>
               </div>
               <div className="flex">
                 <div className="p-1">

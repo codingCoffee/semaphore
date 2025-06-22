@@ -1,29 +1,51 @@
+import { SearxngClient } from "@agentic/searxng";
+import axios from "axios";
+import * as cheerio from "cheerio";
+
 async function main() {
-  console.log("hi");
-  const message =
-    "write a sample javascript function to replace 'hello' with randomness in a long piece of text which is nicely given by a little child";
-
-  const content = `Generate a concise, descriptive title (max 10 words) for the user query below to an LLM, summarizing its main topic and intent.
-
-${message}
-`;
-  const resp = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer": "https://semaphore.chat",
-      "X-Title": "Semaphore Chat",
-    },
-    body: JSON.stringify({
-      model: "openai/gpt-4o-mini",
-      messages: [{ role: "user", content: content }],
-      stream: false,
-    }),
+  const searxng = new SearxngClient();
+  const res = await searxng.search({
+    query: "latest updates in iran israel conflict",
+    engines: ["google"],
   });
+  const limRes = res.results.slice(0, 3);
+  console.log(limRes);
 
-  const data = await resp.json();
-  console.log(data.choices[0].message.content);
+  /**
+   * Fetches the content of a website and returns its main text content.
+   * @param url The website URL to crawl.
+   * @returns The main text content of the website as a string.
+   */
+  async function crawlAndExtractText(url: string): Promise<string> {
+    try {
+      // Fetch the HTML
+      const response = await axios.get(url);
+      const html = response.data;
+
+      // Parse the HTML and extract text
+      const $ = cheerio.load(html);
+      // Remove script and style tags to get clean text
+      $("script, style").remove();
+      // Extract text from the body
+      const text = $("body").text();
+
+      return text;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(`Failed to fetch ${url}: ${error.message}`);
+      } else {
+        throw new Error("An unexpected error occurred");
+      }
+    }
+  }
+
+  // Example usage
+  limRes.forEach((res) => {
+    const targetUrl = res.url; // Replace with your target URL
+    crawlAndExtractText(targetUrl)
+      .then((text) => console.log(text))
+      .catch((error) => console.error(error));
+  });
 }
 
 main();
