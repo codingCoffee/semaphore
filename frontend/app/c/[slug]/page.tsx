@@ -53,7 +53,7 @@ export default function ChatPage() {
                   <AvatarFallback>
                     <img
                       src={`https://api.dicebear.com/9.x/notionists/svg?flip=true&nose=variant01&backgroundColor=fecaca,7f1d1d&backgroundType=gradientLinear&seed=${item.creator?.id}`}
-                      alt="fallback"
+                      alt={item.question?.user?.name || "Anonymous User"}
                       style={{ width: "100%", height: "100%" }}
                     />
                   </AvatarFallback>

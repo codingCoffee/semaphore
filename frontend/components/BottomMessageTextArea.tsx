@@ -4,7 +4,7 @@ import React, { RefObject } from "react";
 
 import { usePathname, redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Search, ArrowUp } from "lucide-react";
+import { Globe, ArrowUp, BadgePlus } from "lucide-react";
 import { AutosizeTextArea } from "@/components/AutoResizeTextArea";
 import { useCallback, useState } from "react";
 import { useStorage } from "../providers/StorageProvider";
@@ -177,7 +177,7 @@ export function BottomMessageTextArea({
                         onPressedChange={setIsSearchQuery}
                         className={`p-0 m-0 data-[state=on]:bg-red-200 dark:data-[state=on]:bg-red-900`}
                       >
-                        <Search />
+                        <Globe />
                       </Toggle>
                     </div>
                   </TooltipTrigger>
@@ -186,13 +186,33 @@ export function BottomMessageTextArea({
                   </TooltipContent>
                 </Tooltip>
               </div>
-              <div className="flex">
+              <div className="flex items-center">
                 <div className="p-1">
-                  <Link href="/">
-                    <Button variant="outline" className="cursor-pointer">
-                      New Chat
-                    </Button>
-                  </Link>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="p-1">
+                        <Toggle
+                          aria-label="Search Internet"
+                          variant="outline"
+                          pressed={isSearchQuery}
+                          onPressedChange={setIsSearchQuery}
+                          className={`p-0 m-0 data-[state=on]:bg-red-200 dark:data-[state=on]:bg-red-900`}
+                        >
+                          <Link href="/">
+                            <Button
+                              variant="outline"
+                              className="cursor-pointer"
+                            >
+                              <BadgePlus />
+                            </Button>
+                          </Link>
+                        </Toggle>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Start a New Chat</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
                 <Tooltip>
                   <TooltipTrigger asChild>
