@@ -51,10 +51,14 @@ export function Team() {
                       href="https://codingcoffee.dev"
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="hover:underline"
                     >
                       codingcoffee.dev
                     </Link>
-                    <Link href="mailto:shenoy.ameya@gmail.com">
+                    <Link
+                      href="mailto:shenoy.ameya@gmail.com"
+                      className="hover:underline"
+                    >
                       shenoy.ameya@gmail.com
                     </Link>
                   </div>
