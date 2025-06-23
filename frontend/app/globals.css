@@ -168,6 +168,16 @@
     user-select: none;
   }
 
+  .markdown h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .markdown h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
   .markdown hr {
     height: 4px;
     background: var(--sidebar-accent);
