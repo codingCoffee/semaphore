@@ -44,7 +44,10 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Semaphore",
+  title: {
+    template: "%s",
+    default: "Semaphore",
+  },
   description: "The simplest, no nonsense AI chat app!",
   keywords: ["AI", "Chat", "LLM"],
   authors: [{ name: "Ameya Shenoy", url: "https://codingcoffee.dev" }],
@@ -55,7 +58,25 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    images: "/og-image.png",
+    title: "Semaphore",
+    description: "The simplest, no nonsense AI chat app!",
+    url: "https://semaphore.chat",
+    siteName: "Semaphore",
+    images: [
+      {
+        url: "https://nextjs.org/og-image.png",
+        width: 800,
+        height: 600,
+      },
+      {
+        url: "https://nextjs.org/og-image.png",
+        width: 1800,
+        height: 1600,
+        alt: "My custom alt",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
