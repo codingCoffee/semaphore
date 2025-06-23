@@ -170,12 +170,12 @@
 
   .markdown h1 {
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 600;
   }
 
   .markdown h2 {
     font-size: 1.3rem;
-    font-weight: bold;
+    font-weight: 500;
   }
 
   .markdown hr {
