@@ -32,6 +32,7 @@ const highlighterPromise = createHighlighter({
     "markdown",
     "docker",
     "tf",
+    "mermaid",
   ],
   themes: [lightTheme, darkTheme],
 });
