@@ -26,17 +26,27 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Icon } from "@iconify/react";
+import { usePathname } from "next/navigation";
 
 export function NavProjects({ chats }: { chats: any[] }) {
   const { isMobile } = useSidebar();
   const chatTitlePlaceholder = " * * * ";
+
+  const pathname = usePathname();
+  let chatId = null;
+  if (pathname.startsWith("/c/")) {
+    chatId = pathname.split("/")[2];
+  }
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Chats</SidebarGroupLabel>
       <SidebarMenu>
         {chats.map((item) => (
-          <SidebarMenuItem key={item.id}>
+          <SidebarMenuItem
+            key={item.id}
+            className={`${chatId === item.id ? "bg-gray-200 dark:bg-gray-900 rounded-md" : ""}`}
+          >
             <SidebarMenuButton asChild>
               <Link href={`/c/${item.id}`}>
                 {item.title === chatTitlePlaceholder ? (
