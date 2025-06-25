@@ -186,25 +186,20 @@ export function BottomMessageTextArea({
                   </TooltipContent>
                 </Tooltip>
               </div>
-              <div className="flex items-center">
-                <div className="p-1">
+              <div className="flex items-center cursor-pointer">
+                <div className="p-1 cursor-pointer">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <div className="p-1">
                         <Toggle
-                          aria-label="Search Internet"
+                          aria-label="Start New Chat"
                           variant="outline"
-                          pressed={isSearchQuery}
-                          onPressedChange={setIsSearchQuery}
-                          className={`p-0 m-0 data-[state=on]:bg-red-200 dark:data-[state=on]:bg-red-900`}
+                          className={`p-0 m-0`}
                         >
-                          <Link href="/">
-                            <Button
-                              variant="outline"
-                              className="cursor-pointer"
-                            >
-                              <BadgePlus />
-                            </Button>
+                          <Link href="/" className="cursor-pointer">
+                            <div className="cursor-pointer">
+                              <BadgePlus className="cursor-pointer" />
+                            </div>
                           </Link>
                         </Toggle>
                       </div>
