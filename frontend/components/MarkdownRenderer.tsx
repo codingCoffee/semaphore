@@ -102,7 +102,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
         mermaid.initialize({
           startOnLoad: false,
           flowchart: { useMaxWidth: false },
-          theme: "forest",
+          theme: theme === "dark" ? "dark" : "default",
         });
 
         const mermaidRender = document.createElement("div");
