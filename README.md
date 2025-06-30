@@ -3,9 +3,7 @@
     <img src="./frontend/app/favicon.ico" width="100">
   </a>
 
-  <a href="https://semaphore.chat" target="_blank" rel="noopener noreferrer">
-    <h1>Semaphore</h1>
-  </a>
+# [Semaphore](https://semaphore.chat)
 
   <h4>The simplest, no nonsense AI chat app!</h4>
 </div>
@@ -99,9 +97,9 @@ graph TD
     A -->|ZQL| C[Zero-Client]
 
     %% Zero-Cache and Postgres
-    C <-->|Communicates via WebSocket| D[Zero-Cache]
-    D -->|SQL| E[PostgreSQL Database]
-    E -->|Replicates data| D
+    C <-->|"sync (WebSocket)"| D[Zero-Cache]
+    D -->|"write to db (SQL)"| E[PostgreSQL Database]
+    E -->|"logical replication"| D
 
     %% OpenRouter
     B --> F[OpenRouter]
