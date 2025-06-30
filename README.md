@@ -35,47 +35,47 @@ Engage with multiple large language models in one seamless interface.
 <details>
 <summary>- 🔒 Authentication & Sync</summary>
 Secure your conversations and sync chats across devices.
-<details>
+</details>
 
 <details>
 <summary>- 🌐 Browser Friendly</summary>
 Works smoothly in all modern web browsers—no installation required.
-<details>
+</details>
 
 <details>
 <summary>- 🔍 Web Search (Beta)</summary>
 Fetch information from the web right within your chat (experimental feature).
-<details>
+</details>
 
 <details>
 <summary>- ⏯️ Resumable Streams</summary>
 Resume, or replay chat streams for uninterrupted workflows.
-<details>
+</details>
 
 <details>
 <summary>- 📊 MermaidJS Diagram Renders</summary>
 Visualize diagrams and flowcharts with MermaidJS integration.
-<details>
+</details>
 
 <details>
 <summary>- 💡 Code Syntax Highlighting</summary>
 Enjoy beautifully highlighted code snippets for better readability.
-<details>
+</details>
 
 <details>
 <summary>- 🌙 Dark Mode</summary>
 Switch between light and dark themes for comfortable browsing.
-<details>
+</details>
 
 <details>
 <summary>- 🔑 Bring Your Own Keys</summary>
 Use your own API keys for enhanced privacy and customization.
-<details>
+</details>
 
 <details>
 <summary>- 📱 Mobile Friendly</summary>
 Fully responsive design for a great experience on smartphones and tablets.
-<details>
+</details>
 
 ## Contributing
 
