@@ -8,7 +8,7 @@
 
 <img src="./frontend/public/landing.png">
 
-## ⚙️Local Install
+## Local Install
 
 - Execute these commands. (assuming you have `docker` and `docker-compose` installed on your system, if not, install them first.)
 
@@ -25,49 +25,59 @@ docker compose exec frontend npm run db:migrate
 
 - Visit [http://localhost:3000](http://localhost:3000)
 
-## 🚀 Notable Features
+## Notable Features
 
-- 💬 Chat with Various LLMs
+<details>
+<summary>- 💬 Chat with Various LLMs</summary>
+Engage with multiple large language models in one seamless interface.
+</details>
 
-  Engage with multiple large language models in one seamless interface.
+<details>
+<summary>- 🔒 Authentication & Sync</summary>
+Secure your conversations and sync chats across devices.
+<details>
 
-- 🔒 Authentication & Sync
+<details>
+<summary>- 🌐 Browser Friendly</summary>
+Works smoothly in all modern web browsers—no installation required.
+<details>
 
-  Secure your conversations and sync chats across devices.
+<details>
+<summary>- 🔍 Web Search (Beta)</summary>
+Fetch information from the web right within your chat (experimental feature).
+<details>
 
-- 🌐 Browser Friendly
+<details>
+<summary>- ⏯️ Resumable Streams</summary>
+Resume, or replay chat streams for uninterrupted workflows.
+<details>
 
-  Works smoothly in all modern web browsers—no installation required.
+<details>
+<summary>- 📊 MermaidJS Diagram Renders</summary>
+Visualize diagrams and flowcharts with MermaidJS integration.
+<details>
 
-- 🔍 Web Search (Beta)
+<details>
+<summary>- 💡 Code Syntax Highlighting</summary>
+Enjoy beautifully highlighted code snippets for better readability.
+<details>
 
-  Fetch information from the web right within your chat (experimental feature).
+<details>
+<summary>- 🌙 Dark Mode</summary>
+Switch between light and dark themes for comfortable browsing.
+<details>
 
-- ⏯️ Resumable Streams
+<details>
+<summary>- 🔑 Bring Your Own Keys</summary>
+Use your own API keys for enhanced privacy and customization.
+<details>
 
-  Resume, or replay chat streams for uninterrupted workflows.
+<details>
+<summary>- 📱 Mobile Friendly</summary>
+Fully responsive design for a great experience on smartphones and tablets.
+<details>
 
-- 📊 MermaidJS Diagram Renders
-
-  Visualize diagrams and flowcharts with MermaidJS integration.
-
-- 💡 Code Syntax Highlighting
-
-  Enjoy beautifully highlighted code snippets for better readability.
-
-- 🌙 Dark Mode
-
-  Switch between light and dark themes for comfortable browsing.
-
-- 🔑 Bring Your Own Keys
-
-  Use your own API keys for enhanced privacy and customization.
-
-- 📱 Mobile Friendly
-
-  Fully responsive design for a great experience on smartphones and tablets.
-
-## 🤝 Contributing
+## Contributing
 
 semaphore is free and open source software licensed under Apache-2.0 license. If you are interested in contributing, feel free to open up a PR.
 
@@ -75,10 +85,10 @@ semaphore is free and open source software licensed under Apache-2.0 license. If
 - Postgres is used for the database
 - Zero by Replicache is used for the sync engine, and to achieve resumable streams :)
 
-## ✒️ Authors
+## Authors
 
 - [@codingcoffee](https://github.com/codingcoffee)
 
-## ⚖️License
+## License
 
 semaphore is licensed under the Apache-2.0 License
