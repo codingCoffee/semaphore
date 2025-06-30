@@ -1,12 +1,22 @@
 <div align="center">
-  <img src="./frontend/app/favicon.ico" width="100">
-  <h1>
-      Semaphore
-  </h1>
+  <a href="https://semaphore.chat" target="_blank" rel="noopener noreferrer">
+    <img src="./frontend/app/favicon.ico" width="100">
+  </a>
+
+  <a href="https://semaphore.chat" target="_blank" rel="noopener noreferrer">
+    <h1>Semaphore</h1>
+  </a>
+
   <h4>The simplest, no nonsense AI chat app!</h4>
 </div>
 
-<img src="./frontend/public/landing.png">
+<a href="https://semaphore.chat" target="_blank" rel="noopener noreferrer">
+  <img src="./frontend/public/landing.png">
+</a>
+
+## Demo
+
+[semaphore.chat](https://semaphore.chat)
 
 ## Local Install
 
