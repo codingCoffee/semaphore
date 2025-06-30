@@ -87,6 +87,30 @@ Use your own API keys for enhanced privacy and customization.
 Fully responsive design for a great experience on smartphones and tablets.
 </details>
 
+## Architecture
+
+```mermaid
+graph TD
+
+    %% Frontend
+    A[Next.js Client] -->|HTTP /chat API| B[Next.js Server]
+
+    %% Next.js Server to Zero-Client
+    A -->|ZQL| C[Zero-Client]
+
+    %% Zero-Cache and Postgres
+    C <-->|Communicates via WebSocket| D[Zero-Cache]
+    D -->|SQL| E[PostgreSQL Database]
+    E -->|Replicates data| D
+
+    %% OpenRouter
+    B --> F[OpenRouter]
+    F --> B
+
+    %% Write
+    B --> E
+```
+
 ## Contributing
 
 semaphore is free and open source software licensed under Apache-2.0 license. If you are interested in contributing, feel free to open up a PR.
