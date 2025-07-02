@@ -1,25 +1,30 @@
 "use client";
 
 import { Zero } from "@rocicorp/zero";
-
-import { schema, type Schema } from "@/zero-schema.gen";
-
+// import { ZeroProvider } from "@rocicorp/zero/react";
 import { ZeroProvider } from "@/components/zero-provider";
+import { schema, type Schema } from "@/zero/schema";
 import { useMemo } from "react";
-import { useSession } from "next-auth/react";
+import { createMutators } from "@/lib/zero/mutators";
+import { useSession } from "@/components/session-provider";
 
 export function ZeroInit({ children }: { children: React.ReactNode }) {
   const session = useSession();
+
   const opts = useMemo(() => {
     return {
       schema,
-      userID: session.data?.user?.email ?? "anon",
+      userID: session.data?.userID ?? "anon",
+      auth: session.data?.jwt,
       server: process.env.NEXT_PUBLIC_SERVER,
+      mutators: createMutators(
+        session.data?.userID ? { sub: session.data.userID } : undefined,
+      ),
       init: (zero: any) => {
         preload(zero);
       },
     };
-  }, [session.data?.user?.email]);
+  }, [session.data?.userID, session.data?.jwt]);
 
   return <ZeroProvider {...opts}>{children}</ZeroProvider>;
 }
@@ -76,7 +81,7 @@ function preload(z: Zero<Schema>) {
     // avoid having the UI jostle. So we want to preload in the same order we
     // tend to display in the UI. That way local results are always also the
     // top ranked results.
-    z.query.chats.orderBy("createdAt", "desc").limit(1_000).preload({
+    z.query.chat.orderBy("createdAt", "desc").limit(1_000).preload({
       ttl: "1m",
     });
   }, 1_000);

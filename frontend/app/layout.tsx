@@ -5,7 +5,7 @@ import { ModeToggle } from "@/components/ModeToggle";
 import { Icon } from "@iconify/react";
 import { StorageProvider } from "@/providers/StorageProvider";
 import { ZeroInit } from "@/components/zero-init";
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider } from "@/components/session-provider";
 import { Geist, Geist_Mono, Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { AppSidebar } from "@/components/app-sidebar";
@@ -19,8 +19,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
-import GSAPCursor from "@/components/CustomCursor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

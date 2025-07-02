@@ -4,7 +4,8 @@ import { Zero, ZeroOptions, CustomMutatorDefs } from "@rocicorp/zero";
 // import { ZeroProvider as ZeroProviderImpl } from "@rocicorp/zero/react";
 import { ZeroProvider as ZeroProviderBase } from "@rocicorp/zero/react";
 import { useEffect, useState } from "react";
-import { schema, type Schema } from "@/zero-schema.gen";
+import { schema, type Schema } from "@/zero/schema";
+import { useSession } from "@/components/session-provider";
 
 export type ZeroProviderProps<
   S extends Schema,
@@ -35,9 +36,12 @@ function useZero<S extends Schema, MD extends CustomMutatorDefs<S>>(
 ) {
   const [zero, setZero] = useState<any | undefined>(undefined);
 
+  const session = useSession();
+
   useEffect(() => {
     const z = new Zero({
-      userID: "bypass",
+      userID: session.data?.userID ?? "anon",
+      auth: session.data?.jwt,
       schema,
       server: process.env.NEXT_PUBLIC_SERVER,
       kvStore: process.env.NODE_ENV === "development" ? "mem" : "idb",

@@ -1,13 +1,13 @@
 import { db } from "@/db/index";
 import { asc, eq } from "drizzle-orm";
 import { after } from "next/server";
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth/auth";
 
 import { SearxngClient } from "@agentic/searxng";
 import axios from "axios";
 import * as cheerio from "cheerio";
 
-import { chats, llmResponses } from "@/db/schema";
+import { chat, llmResponse } from "@/db/schema";
 
 const chatTitlePlaceholder = " * * * ";
 
@@ -80,11 +80,11 @@ async function updateChatTitleBackgroundTask(
 
   const data = await resp.json();
   await db
-    .update(chats)
+    .update(chat)
     .set({
       title: data.choices[0].message.content,
     })
-    .where(eq(chats.id, LLMResponseInstance.chatId));
+    .where(eq(chat.id, LLMResponseInstance.chatId));
 }
 
 async function callOpenRouterBackgroundTask(
@@ -149,9 +149,9 @@ CONTEXT: ${context}
   } else {
     const llmResponseInstances = await db
       .select()
-      .from(llmResponses)
-      .where(eq(llmResponses.chatId, LLMResponseInstance.chatId))
-      .orderBy(asc(llmResponses.createdAt));
+      .from(llmResponse)
+      .where(eq(llmResponse.chatId, LLMResponseInstance.chatId))
+      .orderBy(asc(llmResponse.createdAt));
     for (const interaction of llmResponseInstances) {
       messages.push({
         role: "user",
@@ -215,11 +215,11 @@ CONTEXT: ${context}
         if (chunk) {
           completeResponse += chunk;
           await db
-            .update(llmResponses)
+            .update(llmResponse)
             .set({
               answer: completeResponse,
             })
-            .where(eq(llmResponses.id, LLMResponseInstance.id));
+            .where(eq(llmResponse.id, LLMResponseInstance.id));
         }
       } catch (e) {
         console.error("Error parsing chunk:", e);
@@ -227,36 +227,36 @@ CONTEXT: ${context}
     }
   }
   await db
-    .update(llmResponses)
+    .update(llmResponse)
     .set({
       isPending: false,
     })
-    .where(eq(llmResponses.id, LLMResponseInstance.id));
+    .where(eq(llmResponse.id, LLMResponseInstance.id));
 }
 
 export async function POST(req: Request) {
   let { message, model, chatId, byokKey, isSearchQuery } = await req.json();
-  const session = await auth();
+  const session = await auth.api.getSession(req);
 
   let chatInstance = null;
   if (chatId === null) {
     const chatInstances = await db
-      .insert(chats)
+      .insert(chat)
       .values({
         title: chatTitlePlaceholder,
         isPublic: false,
         createdBy: session?.user.id,
       })
       .returning({
-        id: chats.id,
-        title: chats.title,
+        id: chat.id,
+        title: chat.title,
       });
     chatInstance = chatInstances[0];
     chatId = chatInstance.id;
   }
 
   const LLMResponseInstances = await db
-    .insert(llmResponses)
+    .insert(llmResponse)
     .values({
       chatId: chatId,
       llm: model,
@@ -265,8 +265,8 @@ export async function POST(req: Request) {
       createdBy: session?.user.id,
     })
     .returning({
-      id: llmResponses.id,
-      chatId: llmResponses.chatId,
+      id: llmResponse.id,
+      chatId: llmResponse.chatId,
     });
   const LLMResponseInstance = LLMResponseInstances[0];
 

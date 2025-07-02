@@ -18,7 +18,7 @@ export default function ChatPage() {
   const z = useZero();
 
   const [LLMResponseInstances] = useQuery(
-    z.query.llmResponses
+    z.query.llmResponse
       .related("creator")
       .where("chatId", chatId)
       .orderBy("createdAt", "asc"),

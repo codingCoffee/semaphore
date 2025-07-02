@@ -16,13 +16,7 @@
  */
 
 import type { DrizzleToZeroSchema, ZeroCustomType } from "drizzle-zero";
-import type * as drizzleSchema from "./db/schema";
-
-import {
-  ANYONE_CAN_DO_ANYTHING,
-  definePermissions,
-  PermissionsConfig,
-} from "@rocicorp/zero";
+import type * as drizzleSchema from "../db/schema";
 
 type ZeroSchema = DrizzleToZeroSchema<typeof drizzleSchema>;
 
@@ -32,218 +26,148 @@ type ZeroSchema = DrizzleToZeroSchema<typeof drizzleSchema>;
  */
 export const schema = {
   tables: {
-    accounts: {
-      name: "accounts",
+    account: {
+      name: "account",
       columns: {
         id: {
           type: "string",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "accounts",
+            "account",
             "id"
           >,
+        },
+        accountId: {
+          type: "string",
+          optional: false,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "account",
+            "accountId"
+          >,
+          serverName: "account_id",
+        },
+        providerId: {
+          type: "string",
+          optional: false,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "account",
+            "providerId"
+          >,
+          serverName: "provider_id",
         },
         userId: {
           type: "string",
           optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "accounts",
+            "account",
             "userId"
           >,
+          serverName: "user_id",
         },
-        type: {
-          type: "string",
-          optional: false,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "accounts",
-            "type"
-          >,
-        },
-        provider: {
-          type: "string",
-          optional: false,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "accounts",
-            "provider"
-          >,
-        },
-        providerAccountId: {
-          type: "string",
-          optional: false,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "accounts",
-            "providerAccountId"
-          >,
-        },
-        refresh_token: {
+        accessToken: {
           type: "string",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "accounts",
-            "refresh_token"
+            "account",
+            "accessToken"
           >,
+          serverName: "access_token",
         },
-        access_token: {
+        refreshToken: {
           type: "string",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "accounts",
-            "access_token"
+            "account",
+            "refreshToken"
           >,
+          serverName: "refresh_token",
         },
-        expires_at: {
+        idToken: {
+          type: "string",
+          optional: true,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "account",
+            "idToken"
+          >,
+          serverName: "id_token",
+        },
+        accessTokenExpiresAt: {
           type: "number",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "accounts",
-            "expires_at"
+            "account",
+            "accessTokenExpiresAt"
           >,
+          serverName: "access_token_expires_at",
         },
-        token_type: {
-          type: "string",
+        refreshTokenExpiresAt: {
+          type: "number",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "accounts",
-            "token_type"
+            "account",
+            "refreshTokenExpiresAt"
           >,
+          serverName: "refresh_token_expires_at",
         },
         scope: {
           type: "string",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "accounts",
+            "account",
             "scope"
           >,
         },
-        id_token: {
+        password: {
           type: "string",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "accounts",
-            "id_token"
+            "account",
+            "password"
           >,
         },
-        session_state: {
-          type: "string",
-          optional: true,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "accounts",
-            "session_state"
-          >,
-        },
-      },
-      primaryKey: ["id"],
-      serverName: "account",
-    },
-    authenticators: {
-      name: "authenticators",
-      columns: {
-        id: {
-          type: "string",
-          optional: true,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "authenticators",
-            "id"
-          >,
-        },
-        credentialID: {
-          type: "string",
-          optional: false,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "authenticators",
-            "credentialID"
-          >,
-        },
-        userId: {
-          type: "string",
-          optional: false,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "authenticators",
-            "userId"
-          >,
-        },
-        providerAccountId: {
-          type: "string",
-          optional: false,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "authenticators",
-            "providerAccountId"
-          >,
-        },
-        credentialPublicKey: {
-          type: "string",
-          optional: false,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "authenticators",
-            "credentialPublicKey"
-          >,
-        },
-        counter: {
+        createdAt: {
           type: "number",
-          optional: false,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "authenticators",
-            "counter"
-          >,
-        },
-        credentialDeviceType: {
-          type: "string",
-          optional: false,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "authenticators",
-            "credentialDeviceType"
-          >,
-        },
-        credentialBackedUp: {
-          type: "boolean",
-          optional: false,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "authenticators",
-            "credentialBackedUp"
-          >,
-        },
-        transports: {
-          type: "string",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "authenticators",
-            "transports"
+            "account",
+            "createdAt"
           >,
+          serverName: "created_at",
+        },
+        updatedAt: {
+          type: "number",
+          optional: true,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "account",
+            "updatedAt"
+          >,
+          serverName: "updated_at",
         },
       },
       primaryKey: ["id"],
-      serverName: "authenticator",
     },
-    chats: {
-      name: "chats",
+    chat: {
+      name: "chat",
       columns: {
         id: {
           type: "string",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "chats",
+            "chat",
             "id"
           >,
         },
@@ -252,7 +176,7 @@ export const schema = {
           optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "chats",
+            "chat",
             "title"
           >,
         },
@@ -261,59 +185,108 @@ export const schema = {
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "chats",
+            "chat",
             "isPublic"
           >,
+          serverName: "is_public",
         },
         createdBy: {
           type: "string",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "chats",
+            "chat",
             "createdBy"
           >,
+          serverName: "created_by",
         },
         deletedAt: {
           type: "number",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "chats",
+            "chat",
             "deletedAt"
           >,
+          serverName: "deleted_at",
         },
         createdAt: {
           type: "number",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "chats",
+            "chat",
             "createdAt"
           >,
+          serverName: "created_at",
         },
         updatedAt: {
           type: "number",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "chats",
+            "chat",
             "updatedAt"
           >,
+          serverName: "updated_at",
         },
       },
       primaryKey: ["id"],
-      serverName: "chat",
     },
-    llmResponses: {
-      name: "llmResponses",
+    jwks: {
+      name: "jwks",
       columns: {
         id: {
           type: "string",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "llmResponses",
+            "jwks",
+            "id"
+          >,
+        },
+        publicKey: {
+          type: "string",
+          optional: false,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "jwks",
+            "publicKey"
+          >,
+          serverName: "public_key",
+        },
+        privateKey: {
+          type: "string",
+          optional: false,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "jwks",
+            "privateKey"
+          >,
+          serverName: "private_key",
+        },
+        createdAt: {
+          type: "number",
+          optional: true,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "jwks",
+            "createdAt"
+          >,
+          serverName: "created_at",
+        },
+      },
+      primaryKey: ["id"],
+    },
+    llmResponse: {
+      name: "llmResponse",
+      columns: {
+        id: {
+          type: "string",
+          optional: true,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "llmResponse",
             "id"
           >,
         },
@@ -322,16 +295,17 @@ export const schema = {
           optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "llmResponses",
+            "llmResponse",
             "chatId"
           >,
+          serverName: "chat_id",
         },
         llm: {
           type: "string",
           optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "llmResponses",
+            "llmResponse",
             "llm"
           >,
         },
@@ -340,7 +314,7 @@ export const schema = {
           optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "llmResponses",
+            "llmResponse",
             "question"
           >,
         },
@@ -349,7 +323,7 @@ export const schema = {
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "llmResponses",
+            "llmResponse",
             "answer"
           >,
         },
@@ -358,17 +332,73 @@ export const schema = {
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "llmResponses",
+            "llmResponse",
             "isPending"
           >,
+          serverName: "is_pending",
         },
         createdBy: {
           type: "string",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "llmResponses",
+            "llmResponse",
             "createdBy"
+          >,
+          serverName: "created_by",
+        },
+        createdAt: {
+          type: "number",
+          optional: true,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "llmResponse",
+            "createdAt"
+          >,
+          serverName: "created_at",
+        },
+        updatedAt: {
+          type: "number",
+          optional: true,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "llmResponse",
+            "updatedAt"
+          >,
+          serverName: "updated_at",
+        },
+      },
+      primaryKey: ["id"],
+    },
+    session: {
+      name: "session",
+      columns: {
+        id: {
+          type: "string",
+          optional: true,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "session",
+            "id"
+          >,
+        },
+        expiresAt: {
+          type: "number",
+          optional: false,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "session",
+            "expiresAt"
+          >,
+          serverName: "expires_at",
+        },
+        token: {
+          type: "string",
+          optional: false,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "session",
+            "token"
           >,
         },
         createdAt: {
@@ -376,121 +406,101 @@ export const schema = {
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "llmResponses",
+            "session",
             "createdAt"
           >,
+          serverName: "created_at",
         },
         updatedAt: {
           type: "number",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "llmResponses",
+            "session",
             "updatedAt"
           >,
+          serverName: "updated_at",
         },
-      },
-      primaryKey: ["id"],
-      serverName: "llmResponse",
-    },
-    sessions: {
-      name: "sessions",
-      columns: {
-        sessionToken: {
+        ipAddress: {
           type: "string",
-          optional: false,
+          optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "sessions",
-            "sessionToken"
+            "session",
+            "ipAddress"
           >,
+          serverName: "ip_address",
+        },
+        userAgent: {
+          type: "string",
+          optional: true,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "session",
+            "userAgent"
+          >,
+          serverName: "user_agent",
         },
         userId: {
           type: "string",
           optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "sessions",
+            "session",
             "userId"
           >,
-        },
-        expires: {
-          type: "number",
-          optional: false,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "sessions",
-            "expires"
-          >,
+          serverName: "user_id",
         },
       },
-      primaryKey: ["sessionToken"],
-      serverName: "session",
+      primaryKey: ["id"],
     },
-    users: {
-      name: "users",
+    user: {
+      name: "user",
       columns: {
         id: {
           type: "string",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "users",
+            "user",
             "id"
           >,
         },
         name: {
           type: "string",
-          optional: true,
+          optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "users",
+            "user",
             "name"
           >,
         },
         email: {
           type: "string",
-          optional: true,
+          optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "users",
+            "user",
             "email"
           >,
         },
         emailVerified: {
-          type: "number",
-          optional: true,
+          type: "boolean",
+          optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "users",
+            "user",
             "emailVerified"
           >,
+          serverName: "email_verified",
         },
         image: {
           type: "string",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "users",
+            "user",
             "image"
-          >,
-        },
-        username: {
-          type: "string",
-          optional: true,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "users",
-            "username"
-          >,
-        },
-        hashedPassword: {
-          type: "string",
-          optional: true,
-          customType: null as unknown as ZeroCustomType<
-            ZeroSchema,
-            "users",
-            "hashedPassword"
           >,
         },
         createdAt: {
@@ -498,32 +508,33 @@ export const schema = {
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "users",
+            "user",
             "createdAt"
           >,
+          serverName: "created_at",
         },
         updatedAt: {
           type: "number",
           optional: true,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "users",
+            "user",
             "updatedAt"
           >,
+          serverName: "updated_at",
         },
       },
       primaryKey: ["id"],
-      serverName: "user",
     },
-    verificationTokens: {
-      name: "verificationTokens",
+    verification: {
+      name: "verification",
       columns: {
         id: {
           type: "string",
-          optional: true,
+          optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "verificationTokens",
+            "verification",
             "id"
           >,
         },
@@ -532,40 +543,60 @@ export const schema = {
           optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "verificationTokens",
+            "verification",
             "identifier"
           >,
         },
-        token: {
+        value: {
           type: "string",
           optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "verificationTokens",
-            "token"
+            "verification",
+            "value"
           >,
         },
-        expires: {
+        expiresAt: {
           type: "number",
           optional: false,
           customType: null as unknown as ZeroCustomType<
             ZeroSchema,
-            "verificationTokens",
-            "expires"
+            "verification",
+            "expiresAt"
           >,
+          serverName: "expires_at",
+        },
+        createdAt: {
+          type: "number",
+          optional: true,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "verification",
+            "createdAt"
+          >,
+          serverName: "created_at",
+        },
+        updatedAt: {
+          type: "number",
+          optional: true,
+          customType: null as unknown as ZeroCustomType<
+            ZeroSchema,
+            "verification",
+            "updatedAt"
+          >,
+          serverName: "updated_at",
         },
       },
       primaryKey: ["id"],
-      serverName: "verificationToken",
     },
   },
   relationships: {
-    llmResponses: {
+    llmResponse: {
       creator: [
         {
           sourceField: ["createdBy"],
           destField: ["id"],
-          destSchema: "users",
+          destSchema: "user",
           cardinality: "one",
         },
       ],
@@ -578,15 +609,3 @@ export const schema = {
  * This type is auto-generated from your Drizzle schema definition.
  */
 export type Schema = typeof schema;
-
-type AuthData = {
-  // The logged-in user.
-  sub: string;
-};
-export const permissions = definePermissions<AuthData, Schema>(schema, () => {
-  return {
-    users: ANYONE_CAN_DO_ANYTHING,
-    llmResponses: ANYONE_CAN_DO_ANYTHING,
-    chats: ANYONE_CAN_DO_ANYTHING,
-  } satisfies PermissionsConfig<AuthData, Schema>;
-});

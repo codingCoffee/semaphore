@@ -11,14 +11,11 @@ import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
 
 import { Button } from "@/components/ui/button";
 
-import { login } from "@/lib/actions/auth";
 import { NavUser } from "@/components/nav-user";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -35,20 +32,23 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 
+import { useSession } from "@/components/session-provider";
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const session = useSession();
+
   const { getValue, setValue } = useStorage();
 
   const [byokKey, setByok] = useState("");
+
   const z = useZero();
-  const { status, data: session } = useSession();
 
   const [chats] = useQuery(
-    z.query.chats
+    z.query.chat
       .where("deletedAt", "IS", null)
-      .where("createdBy", "IS", session?.user.id || null)
+      .where("createdBy", "IS", session?.data?.userID || null)
       .orderBy("createdAt", "desc"),
   );
 
@@ -123,13 +123,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </DialogContent>
           </form>
         </Dialog>
-        {status === "authenticated" ? (
+        {session?.data ? (
           <NavUser />
         ) : (
           <div className="flex w-full justify-center items-center">
             <Button
               className="w-full h-[3rem] cursor-pointer"
-              onClick={() => login()}
+              onClick={() => session.login()}
             >
               <LogIn />
               <span className="group-data-[collapsible=icon]:hidden">
