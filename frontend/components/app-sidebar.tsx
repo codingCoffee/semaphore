@@ -38,6 +38,7 @@ import { useSession } from "@/components/session-provider";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const session = useSession();
+  console.log(session);
 
   const { getValue, setValue } = useStorage();
 

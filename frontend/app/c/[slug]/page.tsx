@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { Separator } from "@/components/ui/separator";
 
 import { useZero, useQuery } from "@rocicorp/zero/react";
 
@@ -62,7 +63,24 @@ export default function ChatPage() {
             </div>
             <div className="p-5 pt-10 rounded-lg markdown">
               {item.answer ? (
-                <MarkdownRenderer markdown={item.answer} />
+                <div>
+                  <MarkdownRenderer markdown={item.answer} />
+                  <Separator className="my-4 bg-red-500" />
+                  <div className="flex justify-between text-gray-400">
+                    <div>{item.llm}</div>
+                    <div>
+                      {new Date(item.createdAt).toLocaleString("en-IN", {
+                        timeZone: "Asia/Kolkata",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                      })}
+                    </div>
+                  </div>
+                </div>
               ) : (
                 <Icon icon="svg-spinners:pulse-multiple" />
               )}
