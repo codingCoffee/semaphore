@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo } from "react";
 import { authClient } from "@/lib/auth/client";
 import { Cookies, useCookies } from "react-cookie";
 
@@ -90,20 +90,20 @@ function zeroAuth(initialJWT: string | undefined) {
         return Promise.resolve(initialJWT);
       }
 
-      await fetch("/api/auth/refresh", {
-        credentials: "include",
-      });
-      return new Cookies().get("jwt") as string | undefined;
-
-      // const response = await fetch("/api/auth/token", {
-      //   method: "GET",
+      // await fetch("/api/auth/refresh", {
       //   credentials: "include",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
       // });
-      // const data = await response.json();
-      // return data.token;
+      // return new Cookies().get("jwt") as string | undefined;
+
+      const response = await fetch("/api/auth/token", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      return data.token;
     };
   };
 }
