@@ -1,5 +1,5 @@
 import {
-  ANYONE_CAN_DO_ANYTHING,
+  ANYONE_CAN,
   definePermissions,
   PermissionsConfig,
   ExpressionBuilder,
@@ -13,24 +13,45 @@ type AuthData = {
   sub: string;
 };
 
+// NOTES:
+// - cpmLit -> compare literal
+// - https://github.com/rocicorp/mono/blob/ee6e3890917f9a0e9aeda9d2929faa4d997135a4/packages/zql/src/query/expression.ts#L266
+
 export const permissions = definePermissions<AuthData, Schema>(schema, () => {
-  const allowIfChatCreatorOrNull = (
+  const allowIfChatCreatorOrNullOrPublicChat = (
     authData: AuthData,
     { or, cmp }: ExpressionBuilder<Schema, "chat">,
-  ) => {
-    return or(
+  ) =>
+    or(
       cmp("createdBy", authData.sub),
       cmp("createdBy", "IS", null),
       cmp("createdBy", "=", ""),
+      cmp("isPublic", "IS", true),
     );
-  };
+
+  const allowIfLLMResponseChatCreatorOrNullOrPublicChat = (
+    authData: AuthData,
+    { exists }: ExpressionBuilder<Schema, "llmResponse">,
+  ) =>
+    exists("chat", (c) =>
+      c.whereExists("creator", (u) => u.where("id", authData.sub)),
+    );
 
   return {
-    user: ANYONE_CAN_DO_ANYTHING,
-    llmResponse: ANYONE_CAN_DO_ANYTHING,
+    user: {
+      row: {
+        // required to shou user who sent the message to the LLM
+        select: ANYONE_CAN,
+      },
+    },
+    llmResponse: {
+      row: {
+        select: ANYONE_CAN,
+      },
+    },
     chat: {
       row: {
-        select: [allowIfChatCreatorOrNull],
+        select: [allowIfChatCreatorOrNullOrPublicChat],
       },
     },
   } satisfies PermissionsConfig<AuthData, Schema>;

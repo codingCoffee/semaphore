@@ -61,6 +61,23 @@ export const llmResponse = pgTable("llmResponse", {
     .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
 });
 
+export const llmResponseLinkedToChatRelations = relations(
+  llmResponse,
+  ({ one }) => ({
+    chat: one(chat, {
+      fields: [llmResponse.chatId],
+      references: [chat.id],
+    }),
+  }),
+);
+
+export const chatCreatorToUserRelations = relations(chat, ({ one }) => ({
+  creator: one(authSchema.user, {
+    fields: [chat.createdBy],
+    references: [authSchema.user.id],
+  }),
+}));
+
 export const llmResponseCreatorToUserRelations = relations(
   llmResponse,
   ({ one }) => ({

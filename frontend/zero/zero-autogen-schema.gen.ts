@@ -591,12 +591,30 @@ export const schema = {
     },
   },
   relationships: {
+    chat: {
+      creator: [
+        {
+          sourceField: ["createdBy"],
+          destField: ["id"],
+          destSchema: "user",
+          cardinality: "one",
+        },
+      ],
+    },
     llmResponse: {
       creator: [
         {
           sourceField: ["createdBy"],
           destField: ["id"],
           destSchema: "user",
+          cardinality: "one",
+        },
+      ],
+      chat: [
+        {
+          sourceField: ["chatId"],
+          destField: ["id"],
+          destSchema: "chat",
           cardinality: "one",
         },
       ],
