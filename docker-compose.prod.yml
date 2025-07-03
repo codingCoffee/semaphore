@@ -44,6 +44,7 @@ services:
       - ./frontend:/app
     env_file:
       - ./frontend/.env.production
+      - ./frontend/.zero-cache.env
 
   zero-cache:
     image: rocicorp/zero:0.20.2025052100
