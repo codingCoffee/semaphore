@@ -47,7 +47,7 @@ services:
       - ./frontend/.zero-cache.env
 
   zero-cache:
-    image: rocicorp/zero:0.20.2025052100
+    image: rocicorp/zero:0.21.2025070200
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
