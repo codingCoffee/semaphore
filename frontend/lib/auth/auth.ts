@@ -7,15 +7,6 @@ import { createAuthMiddleware, jwt } from "better-auth/plugins";
 import cookie from "cookie";
 import { v4 as uuidv4 } from "uuid";
 
-const gClientID = must(
-  process.env.GOOGLE_CLIENT_ID,
-  "GOOGLE_CLIENT_ID is required",
-);
-const gClientSecret = must(
-  process.env.GOOGLE_CLIENT_SECRET,
-  "GOOGLE_CLIENT_SECRET is required",
-);
-
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
@@ -49,8 +40,8 @@ export const auth = betterAuth({
   },
   socialProviders: {
     google: {
-      clientId: gClientID,
-      clientSecret: gClientSecret,
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     },
   },
   hooks: {
