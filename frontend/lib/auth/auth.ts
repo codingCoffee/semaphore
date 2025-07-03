@@ -24,13 +24,15 @@ export const auth = betterAuth({
         // enable shorter-lived tokens.
         expirationTime: "1h",
       },
-      jwks: {
-        // disablePrivateKeyEncryption: true,
-        keyPairConfig: {
-          alg: "EdDSA",
-          crv: "Ed25519",
-        },
-      },
+      // TODO: https://github.com/better-auth/better-auth/issues/3218
+      // disabling this since ^
+      // jwks: {
+      //   // disablePrivateKeyEncryption: true,
+      //   keyPairConfig: {
+      //     alg: "EdDSA",
+      //     crv: "Ed25519",
+      //   },
+      // },
     }),
   ],
   advanced: {
