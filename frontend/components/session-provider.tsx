@@ -41,6 +41,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       name: cookies.name,
       email: cookies.email,
       image: cookies.image,
+      jwt: cookies.jwt,
     };
   }, [cookies.userid, cookies.email]);
 
