@@ -10,7 +10,8 @@ RUN npm ci
 # Copy app source code
 COPY . .
 
-ENV NEXT_PUBLIC_SERVER=https://zero.semaphore.chat
+ENV NEXT_PUBLIC_ZERO_SERVER=https://zero.semaphore.chat
+ENV NEXT_PUBLIC_API_SERVER=https://zero.semaphore.chat
 
 # Build the Next.js app
 RUN npm run build

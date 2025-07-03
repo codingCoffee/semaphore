@@ -41,9 +41,9 @@ function useZero<S extends Schema, MD extends CustomMutatorDefs<S>>(
   useEffect(() => {
     const z = new Zero({
       userID: session.data?.userID ?? "anon",
-      auth: session.data?.jwt,
+      auth: session.zeroAuth(),
       schema,
-      server: process.env.NEXT_PUBLIC_SERVER,
+      server: process.env.NEXT_PUBLIC_ZERO_SERVER,
       kvStore: process.env.NODE_ENV === "development" ? "mem" : "idb",
     });
     if (init) {

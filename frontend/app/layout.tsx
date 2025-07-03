@@ -19,6 +19,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import CookiesProviderWrapper from "@/components/cookies-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -103,35 +104,37 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="min-h-screen selection:bg-red-200 dark:selection:bg-red-900">
-            <SessionProvider>
-              <StorageProvider>
-                <ZeroInit>
-                  <SidebarProvider>
-                    <AppSidebar />
-                    <SidebarInset>
-                      <header className="flex h-16 shrink-0 items-center transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 fixed z-20">
-                        <div className="flex items-center gap-2 px-2 rounded-md backdrop-blur-3xl">
-                          <SidebarTrigger />
-                          <ModeToggle />
+            <CookiesProviderWrapper>
+              <SessionProvider>
+                <StorageProvider>
+                  <ZeroInit>
+                    <SidebarProvider>
+                      <AppSidebar />
+                      <SidebarInset>
+                        <header className="flex h-16 shrink-0 items-center transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 fixed z-20">
+                          <div className="flex items-center gap-2 px-2 rounded-md backdrop-blur-3xl">
+                            <SidebarTrigger />
+                            <ModeToggle />
 
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Link href="https://github.com/codingcoffee/semaphore">
-                                <Icon icon="line-md:github-loop" />
-                              </Link>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Star me on GitHub</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </div>
-                      </header>
-                      {children}
-                    </SidebarInset>
-                  </SidebarProvider>
-                </ZeroInit>
-              </StorageProvider>
-            </SessionProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Link href="https://github.com/codingcoffee/semaphore">
+                                  <Icon icon="line-md:github-loop" />
+                                </Link>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Star me on GitHub</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </div>
+                        </header>
+                        {children}
+                      </SidebarInset>
+                    </SidebarProvider>
+                  </ZeroInit>
+                </StorageProvider>
+              </SessionProvider>
+            </CookiesProviderWrapper>
             <footer className="flex"></footer>
           </div>
         </ThemeProvider>

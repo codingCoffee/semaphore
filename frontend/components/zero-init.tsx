@@ -15,8 +15,8 @@ export function ZeroInit({ children }: { children: React.ReactNode }) {
     return {
       schema,
       userID: session.data?.userID ?? "anon",
-      auth: session.data?.jwt,
-      server: process.env.NEXT_PUBLIC_SERVER,
+      auth: session.zeroAuth(),
+      server: process.env.NEXT_PUBLIC_ZERO_SERVER,
       mutators: createMutators(
         session.data?.userID ? { sub: session.data.userID } : undefined,
       ),
@@ -24,7 +24,7 @@ export function ZeroInit({ children }: { children: React.ReactNode }) {
         preload(zero);
       },
     };
-  }, [session.data?.userID, session.data?.jwt]);
+  }, [session.data?.userID]);
 
   return <ZeroProvider {...opts}>{children}</ZeroProvider>;
 }
