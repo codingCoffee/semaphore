@@ -68,6 +68,7 @@ export const auth = betterAuth({
         });
 
         if (session && token) {
+          console.info({ session, token });
           setCookies(headers, {
             userid: session.user.id,
             email: session.user.email,
@@ -113,6 +114,8 @@ export function setCookies(
     path: "/",
   };
   for (const [key, value] of Object.entries(cookies)) {
+    console.info({ cookie });
     headers.append("Set-Cookie", cookie.serialize(key, value, opts));
+    console.info("cookie set");
   }
 }
