@@ -126,17 +126,27 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {session?.data ? (
           <NavUser />
         ) : (
-          <div className="flex w-full justify-center items-center">
-            <Button
-              className="w-full h-[3rem] cursor-pointer"
-              onClick={() => session.login()}
-            >
-              <LogIn />
-              <span className="group-data-[collapsible=icon]:hidden">
-                Continue with Google
-              </span>
-            </Button>
-          </div>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="flex w-full justify-center items-center">
+                <Button
+                  className="w-full h-[3rem] cursor-pointer"
+                  onClick={() => session.login()}
+                >
+                  <LogIn />
+                  <span className="group-data-[collapsible=icon]:hidden">
+                    Continue with Google
+                  </span>
+                </Button>
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              <div>
+                <p>Auth is having some issues temporarily</p>
+                <p>I'll have it up and running in no time!</p>
+              </div>
+            </TooltipContent>
+          </Tooltip>
         )}
       </SidebarFooter>
       <SidebarRail />
