@@ -153,7 +153,18 @@ export function BottomMessageTextArea({
                               "text",
                             ) &&
                             parseFloat(model.pricing?.prompt || "1") <=
-                              0.0000001,
+                              0.0000001 &&
+                            [
+                              "agentica-org/deepcoder-14b-preview:free",
+                              "meta-llama/llama-3.2-3b-instruct",
+                              "openai/gpt-4.1-nano",
+                              "deepseek/deepseek-r1-distill-llama-8b",
+                              "sao10k/l3-lunaris-8b",
+                              "mistralai/mistral-small-3.1-24b-instruct",
+                              "google/gemma-3-27b-it",
+                              "deepseek/deepseek-r1:free",
+                              "google/gemini-2.0-flash-001",
+                            ].includes(model.id),
                         )
                         .sort((a, b) => (a.name > b.name ? 1 : -1))
                         .map((model) => (
