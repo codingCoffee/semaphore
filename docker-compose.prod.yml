@@ -70,6 +70,7 @@ services:
       - "127.0.0.1:8081:8081"
     depends_on:
       postgres:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "nc", "-vz", "127.0.0.1", "8081"]
       interval: 5s
