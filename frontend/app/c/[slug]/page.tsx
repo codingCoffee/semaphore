@@ -66,7 +66,7 @@ export default function ChatPage() {
                 <div>
                   <MarkdownRenderer markdown={item.answer} />
                   <Separator className="my-2" />
-                  <div className="flex justify-between text-gray-400 text-sm">
+                  <div className="flex justify-between text-gray-400 text-xs">
                     <div>{item.llm}</div>
                     <div>
                       {new Date(item.createdAt).toLocaleString("en-IN", {
