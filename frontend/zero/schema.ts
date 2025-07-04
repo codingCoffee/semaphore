@@ -14,7 +14,7 @@ type AuthData = {
 };
 
 // NOTES:
-// - cpmLit -> compare literal
+// cpmLit -> compare literal
 // - https://github.com/rocicorp/mono/blob/ee6e3890917f9a0e9aeda9d2929faa4d997135a4/packages/zql/src/query/expression.ts#L266
 
 export const permissions = definePermissions<AuthData, Schema>(schema, () => {
@@ -29,13 +29,25 @@ export const permissions = definePermissions<AuthData, Schema>(schema, () => {
       cmp("isPublic", "IS", true),
     );
 
-  const allowIfLLMResponseChatCreatorOrNullOrPublicChat = (
+  const allowIfLLMResponseChatCreator = (
     authData: AuthData,
     { exists }: ExpressionBuilder<Schema, "llmResponse">,
   ) =>
     exists("chat", (c) =>
       c.whereExists("creator", (u) => u.where("id", authData.sub)),
     );
+  const allowIfLLMResponseChatCreatorIsNull = (
+    authData: AuthData,
+    { exists }: ExpressionBuilder<Schema, "llmResponse">,
+  ) => exists("chat", (c) => c.where("createdBy", "IS", null));
+  const allowIfLLMResponseChatCreatorIsEmpty = (
+    authData: AuthData,
+    { exists }: ExpressionBuilder<Schema, "llmResponse">,
+  ) => exists("chat", (c) => c.where("createdBy", "=", ""));
+  const allowIfLLMResponseChatIsPublic = (
+    authData: AuthData,
+    { exists }: ExpressionBuilder<Schema, "llmResponse">,
+  ) => exists("chat", (c) => c.where("isPublic", "IS", true));
 
   return {
     user: {
@@ -46,7 +58,12 @@ export const permissions = definePermissions<AuthData, Schema>(schema, () => {
     },
     llmResponse: {
       row: {
-        select: ANYONE_CAN,
+        select: [
+          allowIfLLMResponseChatCreator,
+          allowIfLLMResponseChatCreatorIsNull,
+          allowIfLLMResponseChatCreatorIsEmpty,
+          allowIfLLMResponseChatIsPublic,
+        ],
       },
     },
     chat: {
