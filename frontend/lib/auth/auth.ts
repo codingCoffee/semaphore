@@ -26,14 +26,13 @@ export const auth = betterAuth({
       },
       // TODO: https://github.com/better-auth/better-auth/issues/3218
       // disabling this since ^
-      jwks: {},
-      // jwks: {
-      //   // disablePrivateKeyEncryption: true,
-      //   keyPairConfig: {
-      //     alg: "EdDSA",
-      //     crv: "Ed25519",
-      //   },
-      // },
+      jwks: {
+        // disablePrivateKeyEncryption: true,
+        keyPairConfig: {
+          alg: "EdDSA",
+          crv: "Ed25519",
+        },
+      },
     }),
   ],
   advanced: {
