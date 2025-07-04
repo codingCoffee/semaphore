@@ -4,7 +4,7 @@ import { db } from "@/db/index";
 import { must } from "@/lib/must";
 import * as schema from "@/lib/auth/schema";
 import { createAuthMiddleware, jwt } from "better-auth/plugins";
-import cookie from "cookie";
+import { serialize } from "cookie";
 import { v4 as uuidv4 } from "uuid";
 
 export const auth = betterAuth({
@@ -111,9 +111,7 @@ export function setCookies(
     maxAge: 60 * 60 * 24 * 365,
     path: "/",
   };
-  console.log({ cookies });
   for (const [key, value] of Object.entries(cookies)) {
-    console.log({ cookie });
-    headers.append("Set-Cookie", cookie.serialize(key, value, opts));
+    headers.append("Set-Cookie", serialize(key, value, opts));
   }
 }
