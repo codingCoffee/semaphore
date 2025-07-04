@@ -3,6 +3,7 @@
 Dockerfile
 .gitignore
 .dockerignore
+.git
 
 # dependencies
 /node_modules
