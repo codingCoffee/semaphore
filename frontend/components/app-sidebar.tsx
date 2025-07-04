@@ -35,6 +35,11 @@ import {
 import { useEffect } from "react";
 
 import { useSession } from "@/components/session-provider";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const session = useSession();
