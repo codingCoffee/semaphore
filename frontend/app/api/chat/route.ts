@@ -1,6 +1,6 @@
 import { db } from "@/db/index";
 import { asc, eq } from "drizzle-orm";
-import { after } from "next/server";
+import { NextResponse, after } from "next/server";
 import { auth } from "@/lib/auth/auth";
 
 import { SearxngClient } from "@agentic/searxng";
@@ -283,7 +283,7 @@ export async function POST(req: Request) {
     );
   });
 
-  return Response.json({
+  return NextResponse.json({
     id: chatId,
     message: "Request received, background task scheduled",
   });
