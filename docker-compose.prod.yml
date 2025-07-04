@@ -62,15 +62,17 @@ services:
     depends_on:
       - postgres
 
-  whodb:
-    image: clidey/whodb:0.55.0
-    restart: unless-stopped
+  pgweb:
+    image: sosedoff/pgweb:0.16.2
     env_file:
-      - ./frontend/.whodb.env
+      - ./frontend/.pgweb.env
     ports:
-      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:8081:8081"
     depends_on:
-      - postgres
+      postgres:
+    healthcheck:
+      test: ["CMD", "nc", "-vz", "127.0.0.1", "8081"]
+      interval: 5s
 
   postgres:
     image: postgres:16.2-alpine
