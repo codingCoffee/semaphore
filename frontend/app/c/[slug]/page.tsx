@@ -14,7 +14,7 @@ import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 export default function ChatPage() {
   const pathname = usePathname();
-  let chatId = pathname.split("/")[2];
+  let chatId = pathname.split("/")[2].slice(-36);
 
   const z = useZero();
 
