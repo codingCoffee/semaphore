@@ -35,11 +35,6 @@ import {
 import { useEffect } from "react";
 
 import { useSession } from "@/components/session-provider";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const session = useSession();
@@ -131,27 +126,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {session?.data ? (
           <NavUser />
         ) : (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="flex w-full justify-center items-center">
-                <Button
-                  className="w-full h-[3rem] cursor-pointer"
-                  onClick={() => session.login()}
-                >
-                  <LogIn />
-                  <span className="group-data-[collapsible=icon]:hidden">
-                    Continue with Google
-                  </span>
-                </Button>
-              </div>
-            </TooltipTrigger>
-            <TooltipContent>
-              <div>
-                <p>Auth is having some issues temporarily</p>
-                <p>I'll have it up and running in no time!</p>
-              </div>
-            </TooltipContent>
-          </Tooltip>
+          <div className="flex w-full justify-center items-center">
+            <Button
+              className="w-full h-[3rem] cursor-pointer"
+              onClick={() => session.login()}
+            >
+              <LogIn />
+              <span className="group-data-[collapsible=icon]:hidden">
+                Continue with Google
+              </span>
+            </Button>
+          </div>
         )}
       </SidebarFooter>
       <SidebarRail />
