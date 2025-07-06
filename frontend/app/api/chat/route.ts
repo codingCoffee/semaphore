@@ -87,6 +87,54 @@ async function updateChatTitleBackgroundTask(
     .where(eq(chat.id, LLMResponseInstance.chatId));
 }
 
+// New function to generate search query using LLM
+async function generateSearchQuery(userMessage: string, apiKey: string, model: string): Promise<string> {
+  try {
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: model,
+        messages: [
+          {
+            role: "system",
+            content: `You are an expert at converting user questions into effective web search queries.
+
+Your task is to:
+1. Extract the key concepts and intent from the user's message
+2. Convert it into an optimized search query that will return the most relevant results
+3. Remove unnecessary words and focus on searchable keywords
+4. Return ONLY the search query, nothing else
+
+Examples:
+- User: "I want to know about the latest developments in artificial intelligence" → "latest artificial intelligence developments 2024"
+- User: "How do I cook pasta properly?" → "how to cook pasta properly"
+- User: "What's the weather like in New York today?" → "New York weather today"
+
+Return only the optimized search query without any additional text or explanation.`
+          },
+          {
+            role: "user",
+            content: userMessage
+          }
+        ],
+        max_tokens: 100,
+        temperature: 0.3
+      })
+    });
+
+    const data = await response.json();
+    return data.choices[0]?.message?.content?.trim() || userMessage;
+  } catch (error) {
+    console.error('Error generating search query:', error);
+    // Fallback to original message if LLM call fails
+    return userMessage;
+  }
+}
+
 async function callOpenRouterBackgroundTask(
   LLMResponseInstance: any,
   model: string,
@@ -94,7 +142,7 @@ async function callOpenRouterBackgroundTask(
   byokKey: string | null,
   isSearchQuery: boolean,
 ) {
-  const openRouterKeyToUse = byokKey || process.env.OPENROUTER_API_KEY;
+  const openRouterKeyToUse = byokKey || process.env.OPENROUTER_API_KEY as string;
 
   let openRouterResponse;
   const messages = [
@@ -107,9 +155,11 @@ Whenever referencing yourself add the link https://semaphore.chat on your name. 
   ];
 
   if (isSearchQuery) {
+    const web_search_qeury = await generateSearchQuery(message, openRouterKeyToUse, "gpt-4o-mini");
+
     const searxng = new SearxngClient();
     const res = await searxng.search({
-      query: message,
+      query: web_search_qeury,
       engines: ["google"],
     });
     const limRes = res.results.slice(0, 3);
