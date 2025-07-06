@@ -1,7 +1,4 @@
 <div align="center">
-  <a href="https://semaphore.chat" target="_blank" rel="noopener noreferrer">
-    <img src="./frontend/app/favicon.ico" width="100">
-  </a>
 
 # [Semaphore](https://semaphore.chat)
 
@@ -37,52 +34,63 @@ docker compose exec frontend npm run db:migrate
 
 <details>
 <summary>- 💬 Chat with Various LLMs</summary>
-Engage with multiple large language models in one seamless interface.
+<p>Engage with multiple large language models in one seamless interface.</p>
+<img src="https://github.com/user-attachments/assets/1fb0ef01-cdbe-41c1-b3c7-42dbb4d57419">
 </details>
 
 <details>
 <summary>- 🔒 Authentication & Sync</summary>
-Secure your conversations and sync chats across devices.
+<p>Secure your conversations and sync chats across devices with Google Login</p>
+<img src="https://github.com/user-attachments/assets/891a74f4-f577-4f1f-a308-595959aa8c39">
 </details>
 
 <details>
 <summary>- 🌐 Browser Friendly</summary>
-Works smoothly in all modern web browsers—no installation required.
+<p>Works smoothly in all modern web browsers—no installation required.</p>
 </details>
 
 <details>
 <summary>- 🔍 Web Search (Beta)</summary>
-Fetch information from the web right within your chat (experimental feature).
+<p>Fetch information from the web right within your chat (experimental feature).</p>
+<img src="https://github.com/user-attachments/assets/615add68-c220-43d7-8e75-d2152018522e">
 </details>
 
 <details>
 <summary>- ⏯️ Resumable Streams</summary>
-Resume, or replay chat streams for uninterrupted workflows.
+<p>Resume, or replay chat streams for uninterrupted workflows.</p>
+
+https://github.com/user-attachments/assets/8a919c00-c2ed-4c12-bf77-29505bfbe9e1
+
 </details>
 
 <details>
 <summary>- 📊 MermaidJS Diagram Renders</summary>
-Visualize diagrams and flowcharts with MermaidJS integration.
+<p>Visualize diagrams and flowcharts with MermaidJS integration.</p>
+<img src="https://github.com/user-attachments/assets/765e4e1c-1418-43bc-9bb4-c4380bdf3903">
 </details>
 
 <details>
 <summary>- 💡 Code Syntax Highlighting</summary>
-Enjoy beautifully highlighted code snippets for better readability.
+<p>Enjoy beautifully highlighted code snippets for better readability.</p>
+<img src="https://github.com/user-attachments/assets/c13f89f8-0f63-4d54-a45f-57563fa31fcb">
 </details>
 
 <details>
 <summary>- 🌙 Dark Mode</summary>
-Switch between light and dark themes for comfortable browsing.
+<p>Switch between light and dark themes for comfortable browsing.</p>
+<img src="https://github.com/user-attachments/assets/aba0d1eb-e95c-48c4-91a9-27d7493b758a">
 </details>
 
 <details>
 <summary>- 🔑 Bring Your Own Keys</summary>
-Use your own API keys for enhanced privacy and customization.
+<p>Use your own API keys for enhanced privacy and customization.</p>
+<img src="https://github.com/user-attachments/assets/a0c669a6-3777-4416-a288-aa45d75795cb">
 </details>
 
 <details>
 <summary>- 📱 Mobile Friendly</summary>
-Fully responsive design for a great experience on smartphones and tablets.
+<p>Fully responsive design for a great experience on smartphones and tablets.</p>
+<img src="https://github.com/user-attachments/assets/434a3f8c-3dcb-4970-ad4a-8135afd356eb">
 </details>
 
 ## Architecture
@@ -107,6 +115,12 @@ graph TD
 
     %% Write
     B --> E
+```
+
+## Prod Deployment
+
+```
+npm run db:migrate
 ```
 
 ## Contributing
