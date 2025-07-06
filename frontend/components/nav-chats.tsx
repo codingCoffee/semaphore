@@ -22,7 +22,6 @@ import {
 } from "@/components/ui/sidebar";
 import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
-import { useZero, useQuery } from "@rocicorp/zero/react";
 
 export function NavProjects({ chats }: { chats: any[] }) {
 
@@ -34,9 +33,6 @@ export function NavProjects({ chats }: { chats: any[] }) {
   if (pathname.startsWith("/c/")) {
     chatId = pathname.split("/")[2];
   }
-
-  const z = useZero();
-  const [chatInstance] = useQuery(z.query.chat.where("id", chatId).one());
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
@@ -73,7 +69,7 @@ export function NavProjects({ chats }: { chats: any[] }) {
                     className="flex"
                     onClick={() => {
                       navigator.clipboard.writeText(
-                        `${process.env.NEXT_PUBLIC_API_SERVER}/c/${chatInstance?.title.toLowerCase().substring(3).replace(/\s+/g, "-")}-${chatId}`,
+                        `${process.env.NEXT_PUBLIC_API_SERVER}/c/${item.title.toLowerCase().substring(3).replace(/\s+/g, "-")}-${item.id}`,
                       );
                       toast.info("Link Copied to clipboard 📝");
                     }}
