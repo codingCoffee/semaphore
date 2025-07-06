@@ -11,7 +11,8 @@ RUN npm ci
 COPY . .
 
 ENV NEXT_PUBLIC_ZERO_SERVER=https://zero.semaphore.chat
-ENV NEXT_PUBLIC_API_SERVER=https://zero.semaphore.chat
+ENV NEXT_PUBLIC_API_SERVER=https://semaphore.chat
+ENV NEXT_PUBLIC_RYBBIT_HOST=https://app.rybbit.io
 
 # Build the Next.js app
 RUN npm run build

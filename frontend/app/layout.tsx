@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
+import Script from "next/script"
 import Link from "next/link";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Icon } from "@iconify/react";
@@ -130,6 +131,11 @@ export default function RootLayout({
                           </div>
                         </header>
                         {children}
+                        <Script
+                          src="/api/script.js"
+                          data-site-id="1498"
+                          strategy="afterInteractive"
+                        />
                       </SidebarInset>
                     </SidebarProvider>
                   </ZeroInit>
