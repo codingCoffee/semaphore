@@ -1,11 +1,8 @@
-"use client";
 
-import { useRef } from "react";
 import { BottomMessageTextArea } from "@/components/BottomMessageTextArea";
 import { Sparkles } from "lucide-react";
 
 export default function Home() {
-  const endOfMessagesRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <div className="flex flex-1 flex-col items-center">
@@ -31,7 +28,7 @@ export default function Home() {
         </p>
       </div>
 
-      <BottomMessageTextArea endOfMessagesRef={endOfMessagesRef} />
+      <BottomMessageTextArea endOfMessagesRef={null} />
     </div>
   );
 }

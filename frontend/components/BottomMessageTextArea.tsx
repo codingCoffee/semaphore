@@ -33,7 +33,7 @@ import {
 import models from "@/data/openrouterModels.json";
 
 type BottomMessageTextAreaProps = {
-  endOfMessagesRef: RefObject<HTMLDivElement | null>;
+  endOfMessagesRef: RefObject<HTMLDivElement | null> | null;
 };
 
 export function BottomMessageTextArea({
