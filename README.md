@@ -6,7 +6,7 @@
 </div>
 
 <a href="https://semaphore.chat" target="_blank" rel="noopener noreferrer">
-  <img src="./frontend/public/landing.png">
+  <img src="https://github.com/user-attachments/assets/fb02bd20-d269-429e-a94e-690e6c6b084f">
 </a>
 
 ## Demo
