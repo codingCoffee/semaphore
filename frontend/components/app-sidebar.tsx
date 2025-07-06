@@ -6,6 +6,7 @@ import { useStorage } from "../providers/StorageProvider";
 
 import * as React from "react";
 import { useZero, useQuery } from "@rocicorp/zero/react";
+import { Icon } from "@iconify/react";
 
 import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
 
@@ -131,7 +132,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="w-full h-[3rem] cursor-pointer"
               onClick={() => session.login()}
             >
-              <LogIn />
+              <Icon icon="devicon:google" />
               <span className="group-data-[collapsible=icon]:hidden">
                 Continue with Google
               </span>
