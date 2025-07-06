@@ -26,7 +26,7 @@ export function Team() {
         </Link>
         <div className="grid flex-1 text-left text-sm leading-tight">
           <Link href="/">
-            <span className="truncate font-medium">Semaphore Chat (Alpha)</span>
+            <span className="truncate font-medium">Semaphore Chat</span>
           </Link>
           <HoverCard>
             <HoverCardTrigger asChild>
