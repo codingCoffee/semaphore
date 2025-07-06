@@ -25,7 +25,12 @@ export default async function Image({ params }: { params: { slug: string } }) {
 
   return new ImageResponse(
     (
-      <div tw="flex flex-col w-full h-full items-center justify-between bg-red-100 p-20">
+      <div tw="flex flex-col w-full h-full items-center justify-between bg-red-100 p-20"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 25px 25px, lightgray 2%, transparent 0%), radial-gradient(circle at 75px 75px, lightgray 2%, transparent 0%)',
+          backgroundSize: '100px 100px',
+        }}
+      >
         <div tw="text-7xl">{chatInstance.title}</div>
         <div tw="flex items-center justify-between w-full">
           <div tw="text-6xl text-red-500">semaphore.chat</div>
