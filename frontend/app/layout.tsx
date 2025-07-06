@@ -21,6 +21,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import CookiesProviderWrapper from "@/components/cookies-provider";
+import { Toaster } from "@/components/ui/sonner"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -131,6 +132,7 @@ export default function RootLayout({
                           </div>
                         </header>
                         {children}
+                        <Toaster position="top-center" richColors />
                         <Script
                           src="/api/script.js"
                           data-site-id="1498"

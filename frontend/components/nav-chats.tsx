@@ -1,19 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Pen,
-  Share,
-  MoreHorizontal,
-  Trash2,
-  type LucideIcon,
-} from "lucide-react";
+import { Pen, Share, MoreHorizontal, Trash2 } from "lucide-react";
+
+import { toast } from "sonner";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -27,8 +22,13 @@ import {
 } from "@/components/ui/sidebar";
 import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
+import { useZero, useQuery } from "@rocicorp/zero/react";
+
+import { useSession } from "@/components/session-provider";
 
 export function NavProjects({ chats }: { chats: any[] }) {
+  const session = useSession();
+
   const { isMobile } = useSidebar();
   const chatTitlePlaceholder = " * * * ";
 
@@ -37,6 +37,9 @@ export function NavProjects({ chats }: { chats: any[] }) {
   if (pathname.startsWith("/c/")) {
     chatId = pathname.split("/")[2];
   }
+
+  const z = useZero();
+  const [chatInstance] = useQuery(z.query.chat.where("id", chatId).one());
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
@@ -69,18 +72,33 @@ export function NavProjects({ chats }: { chats: any[] }) {
                 align={isMobile ? "end" : "start"}
               >
                 <DropdownMenuItem>
-                  <Share className="text-muted-foreground" />
-                  <span>Share</span>
+                  <div
+                    className="flex"
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        `${process.env.NEXT_PUBLIC_API_SERVER}/c/${chatInstance?.title.toLowerCase().substring(3).replace(/\s+/g, "-")}-${chatId}`,
+                      );
+                      toast.info("Link Copied to clipboard 📝");
+                    }}
+                  >
+                    <Share className="text-muted-foreground" />
+                    <span className="pl-2">Share</span>
+                  </div>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Pen className="text-muted-foreground" />
-                  <span>Rename</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Trash2 className="text-muted-foreground" />
-                  <span>Delete</span>
-                </DropdownMenuItem>
+                {session?.data ? (
+                  <>
+                    <DropdownMenuItem>
+                      <Pen className="text-muted-foreground" />
+                      <span>Rename</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Trash2 className="text-muted-foreground" />
+                      <span>Delete</span>
+                    </DropdownMenuItem>
+                  </>
+                ) : (
+                  <></>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
